@@ -22,3 +22,81 @@
 	</div>
 </form>
 
+
+<a class="btn btn-primary" href="@Url.Action("Create", "CarOffer")">Go to Create Page</a>
+<a class="btn btn-primary" href="@Url.Action("Create", "CarOffer")">Create Car Offer</a>
+
+﻿<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .header {
+        background-color: #343a40;
+        padding: 20px;
+        color: #fff;
+        text-align: center;
+    }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+
+    .content {
+        text-align: center;
+        margin-top: 100px;
+    }
+
+        .content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .content .btn {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 30px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+            .content .btn:hover {
+                background-color: #4CAF70;
+            }
+</style>
+
+<div class="header">
+    <div class="container">
+        <h1>JobFinder</h1>
+        <p>Find Your Dream Job</p>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <h2>Discover Opportunities</h2>
+        <p>Explore a wide range of job openings and unlock your career potential.</p>
+        <a class="btn" href="/Job/Explore">Explore Jobs</a>
+    </div>
+</div>
+
+@* change and find what the second one is for *@
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
