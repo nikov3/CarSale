@@ -1,25 +1,32 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static CarSale.Data.Constants.CarOfferConstants;
+using System.Runtime.CompilerServices;
 
-namespace CarSale.Data.Entities
+namespace CarSale.Data.Models
 {
-    public class CarOffer
+    public class Offer
     {
 		[Key]
 		public Guid Id { get; set; } = Guid.NewGuid();
 
-		public int CarDealerId { get; set; }
+		public int DealerId { get; set; }
 
-		[ForeignKey(nameof(CarDealerId))]
-		public CarDealer CarDealer { get; set; } = null!;
+		[ForeignKey(nameof(DealerId))]
+		public Dealer Dealer { get; set; } = null!;
 
 		[Required]
-        public int CarBrandId { get; set; }
+        public int BrandId { get; set; }
 
         [Required]
-        [ForeignKey(nameof(CarBrandId))]
-        public CarBrand CarBrand { get; set; } = null!;
+        [ForeignKey(nameof(BrandId))]
+        public Brand Brand { get; set; } = null!;
+
+        [Required]
+        public int CarModelId { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(CarModelId))]
+        public CarModel CarModel { get; set; } = null!;
 
         [Required]
         public int FuelId { get; set; }
@@ -29,11 +36,11 @@ namespace CarSale.Data.Entities
         public Fuel Fuel { get; set; } = null!;
 
         [Required]
-        public int TransmitionId { get; set; }
+        public int TransmissionId { get; set; }
 
         [Required]
-        [ForeignKey(nameof(TransmitionId))]
-        public Transmition Transmition { get; set; } = null!;
+        [ForeignKey(nameof(TransmissionId))]
+        public Transmission Transmission { get; set; } = null!;
 
         [Required]
         public int CarTypeId { get; set; }
@@ -47,7 +54,7 @@ namespace CarSale.Data.Entities
 
         [Required]
         [ForeignKey(nameof(ColorId))]
-        public CarColor Color { get; set; } = null!;
+        public Color Color { get; set; } = null!;
 
         [Required]
         public int CityId { get; set; }
@@ -57,16 +64,15 @@ namespace CarSale.Data.Entities
         public City City { get; set; } = null!;
 
         [Required]
-        [MaxLength(MaxPriceLength)]
+        [Column(TypeName = "decimal(18,2)")]
         public int Price { get; set; }
 
         [Required]
-        [MaxLength(4)]
-        [Range(1950, 2024)]
+        [Column(TypeName = "decimal(4,0)")]
         public int Year { get; set; }        
 
         [Required]
-        [MaxLength(MaxMilageLength)]
+        [Column(TypeName = "decimal(18,2)")]
         public int Milage { get; set; }
 
 

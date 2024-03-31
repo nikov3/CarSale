@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static CarSale.Infrastructure.Constants.DataConstants.City;
 
-namespace CarSale.Data.Entities
+namespace CarSale.Data.Models
 {
     public class City
     {
@@ -8,8 +9,9 @@ namespace CarSale.Data.Entities
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 5)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; } = string.Empty; 
-        public ICollection<CarOffer> CarOffers { get; set; } = new List<CarOffer>();
+
+        public ICollection<Offer> Offers { get; set; } = new List<Offer>();
     }
 }
