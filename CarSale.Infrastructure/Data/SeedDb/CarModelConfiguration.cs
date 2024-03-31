@@ -14,7 +14,7 @@ namespace CarSale.Infrastructure.Data.SeedDb
                .HasForeignKey(o => o.CarModelId)
                .OnDelete(DeleteBehavior.Restrict);
 
-            //builder.HasData(SeedCarModels());
+            builder.HasData(SeedCarModels());
         }
 
         public List<CarModel> SeedCarModels()

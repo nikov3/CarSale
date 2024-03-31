@@ -20,7 +20,7 @@ namespace CarSale.Infrastructure.Data.SeedDb
                .HasForeignKey(cm => cm.BrandId)
                .OnDelete(DeleteBehavior.Restrict);
 
-            //builder.HasData(SeedBrands());
+            builder.HasData(SeedBrands());
         }
 
         private List<Brand> SeedBrands()

@@ -14,7 +14,7 @@ namespace CarSale.Infrastructure.Data.SeedDb
                 .HasForeignKey(o => o.FuelId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //builder.HasData(SeedFuel());
+            builder.HasData(SeedFuel());
         }
 
         private List<Fuel> SeedFuel()

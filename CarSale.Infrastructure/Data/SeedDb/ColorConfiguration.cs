@@ -14,7 +14,7 @@ namespace CarSale.Infrastructure.Data.SeedDb
                 .HasForeignKey(o => o.ColorId)
                 .OnDelete(DeleteBehavior.Restrict);
             
-            //builder.HasData(SeedColor());
+            builder.HasData(SeedColor());
         }
 
         private List<Color> SeedColor()
