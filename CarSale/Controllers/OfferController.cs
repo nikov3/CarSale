@@ -1,12 +1,84 @@
-﻿using CarSale.Infrastructure.Data;
+﻿using CarSale.Core.Models.Offer;
+using CarSale.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarSale.Controllers
 {
+    [Authorize]
     public class OfferController : Controller
     {
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> All() 
+        {
+            var model = new AllOffersQueryModel();
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            var model = new AllOffersQueryModel();
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = new OfferDetailsViewModel();
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Add() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(OfferFormModel model)
+        {
+            return RedirectToAction(nameof(Details), new { id = 1 });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var model = new OfferFormModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, OfferFormModel model)
+        {
+            return RedirectToAction(nameof(Details), new { id = 1 });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var model = new OfferDetailsViewModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(OfferDetailsViewModel model)
+        {
+            return RedirectToAction(nameof(All));
+        }
+
+
+
+
+
         private readonly CarSaleDbContext _context;
 
         public OfferController(CarSaleDbContext context)
@@ -20,11 +92,11 @@ namespace CarSale.Controllers
             return View();
         }
 
-        // GET: CarOfferController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //// GET: CarOfferController/Details/5
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: CarOfferController/Create
         public async Task<ActionResult> Create()
@@ -54,61 +126,61 @@ namespace CarSale.Controllers
             return View();
         }
 
-        // POST: CarOfferController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //// POST: CarOfferController/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        // GET: CarOfferController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        //// GET: CarOfferController/Edit/5
+        //public ActionResult Edit(int id)
+        //{
+        //    return View();
+        //}
 
-        // POST: CarOfferController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //// POST: CarOfferController/Edit/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        // GET: CarOfferController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //// GET: CarOfferController/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
-        // POST: CarOfferController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //// POST: CarOfferController/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

@@ -1,4 +1,5 @@
-﻿using CarSale.Models;
+﻿using CarSale.Core.Models.Home;
+using CarSale.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,9 +16,9 @@ namespace CarSale.Controllers
 
         public IActionResult Index()
         {
+            var model = new IndexViewModel();
 
-
-            return View();
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
