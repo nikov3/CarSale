@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarSale.Extensions
 {
-    public static class ServiceCollectionExtension
+	public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
@@ -19,14 +19,20 @@ namespace CarSale.Extensions
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-
             return services;
         }
 
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
             services
-                .AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultIdentity<IdentityUser>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                })
                 .AddEntityFrameworkStores<CarSaleDbContext>();
 
             return services;
