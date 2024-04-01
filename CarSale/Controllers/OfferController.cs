@@ -42,15 +42,15 @@ namespace CarSale.Controllers
                 .Select(c => new { c.Id, c.Name })
                 .ToListAsync();
 
-            var transmitions = await _context.Transmitions
+            var transmissions = await _context.Transmissions
                 .Select(c => new { c.Id, c.Name })
                 .ToListAsync();
 
             // Creating a SelectList, setting "Id" as the value field and "Name" as the text field
             ViewBag.Brand = new SelectList(brands, "Id", "Name");
             ViewBag.CarModel = new SelectList(carModels, "Id", "Name");
-            ViewBag.Fuel = new SelectList(fuels, "Id", "Fuel");
-            ViewBag.Transmition = new SelectList(transmitions, "Id", "Transmition");
+            ViewBag.Fuel = new SelectList(fuels, "Id", "Name");
+            ViewBag.Transmission = new SelectList(transmissions, "Id", "Name");
             return View();
         }
 

@@ -36,7 +36,7 @@ namespace CarSale.Infrastructure.Data
         public DbSet<City> Cities { get; set; } = null!;
         public DbSet<Color> Colors { get; set; } = null!;
         public DbSet<Fuel> Fuels { get; set; } = null!;
-        public DbSet<Transmission> Transmitions { get; set; } = null!;
+        public DbSet<Transmission> Transmissions { get; set; } = null!;
 
     }
 }
