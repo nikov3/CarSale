@@ -7,8 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarSale.Controllers
 {
-    [Authorize]
-    public class OfferController : Controller
+    public class OfferController : BaseController
     {
         [AllowAnonymous]
         [HttpGet]

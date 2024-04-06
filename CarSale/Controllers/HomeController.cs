@@ -1,12 +1,13 @@
 ﻿using CarSale.Core.Contracts;
 using CarSale.Core.Models.Home;
 using CarSale.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace CarSale.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IOfferService offerService;
@@ -19,6 +20,7 @@ namespace CarSale.Controllers
             offerService = _offerService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var model = await offerService.LastThreeOffers();
@@ -26,6 +28,7 @@ namespace CarSale.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

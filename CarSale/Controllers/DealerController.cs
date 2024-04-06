@@ -1,12 +1,19 @@
-﻿using CarSale.Core.Models.Dealer;
+﻿using CarSale.Core.Contracts;
+using CarSale.Core.Models.Dealer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarSale.Controllers
 {
-    [Authorize]
-    public class DealerController : Controller
+    public class DealerController : BaseController
     {
+        private readonly IDealerService dealerService;
+
+        public DealerController(IDealerService _dealerService)
+        {
+            dealerService = _dealerService;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Become()
         {
