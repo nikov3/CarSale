@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 
@@ -75,6 +76,10 @@ namespace CarSale.Data.Models
         [Column(TypeName = "decimal(18,2)")]
         public int Milage { get; set; }
 
+        [Required]
+        public string ImageUrl { get; set; } = string.Empty;
 
+        [Required]
+        public DateTime CreatedOn { get; set; }
     }
 }
