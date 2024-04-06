@@ -1,4 +1,7 @@
-﻿using CarSale.Infrastructure.Data;
+﻿using CarSale.Core.Contracts;
+using CarSale.Core.Services;
+using CarSale.Infrastructure.Data;
+using CarSale.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +11,8 @@ namespace CarSale.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IOfferService, OfferService>();
+
             return services;
         }
 
@@ -16,6 +21,8 @@ namespace CarSale.Extensions
             var connectionString = config.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             services.AddDbContext<CarSaleDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
