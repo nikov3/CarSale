@@ -1,4 +1,5 @@
-﻿using CarSale.Core.Models.Home;
+﻿using CarSale.Core.Contracts;
+using CarSale.Core.Models.Home;
 using CarSale.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,15 +9,19 @@ namespace CarSale.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IOfferService offerService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IOfferService _offerService)
         {
             _logger = logger;
+            offerService = _offerService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = new IndexViewModel();
+            var model = await offerService.LastThreeOffers();
 
             return View(model);
         }
