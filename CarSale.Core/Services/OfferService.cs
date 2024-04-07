@@ -15,7 +15,7 @@ namespace CarSale.Core.Services
             repository = _repository;
         }
 
-        public async Task<IEnumerable<OfferIndexServiceModel>> LastThreeOffers()
+        public async Task<IEnumerable<OfferIndexServiceModel>> LastThreeOffersAsync()
         {
             return await repository
                 .AllReadOnly<Offer>()

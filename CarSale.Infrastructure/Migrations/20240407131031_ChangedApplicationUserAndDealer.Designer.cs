@@ -4,6 +4,7 @@ using CarSale.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarSale.Infrastructure.Migrations
 {
     [DbContext(typeof(CarSaleDbContext))]
-    partial class CarSaleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240407131031_ChangedApplicationUserAndDealer")]
+    partial class ChangedApplicationUserAndDealer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -477,8 +479,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
+                    b.Property<string>("ContactPhone")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -487,9 +488,6 @@ namespace CarSale.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PhoneNumber")
-                        .IsUnique();
 
                     b.HasIndex("UserId");
 

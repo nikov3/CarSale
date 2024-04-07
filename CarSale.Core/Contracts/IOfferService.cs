@@ -4,6 +4,6 @@ namespace CarSale.Core.Contracts
 {
     public interface IOfferService
     {
-        Task<IEnumerable<OfferIndexServiceModel>> LastThreeOffers();
+        Task<IEnumerable<OfferIndexServiceModel>> LastThreeOffersAsync();
     }
 }
