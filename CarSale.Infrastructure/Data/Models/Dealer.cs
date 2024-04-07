@@ -18,7 +18,7 @@ namespace CarSale.Data.Models
 
         //[StringLength(50, MinimumLength = 5, ErrorMessage = "Contact phone must be between {2} and {1} length")]
         [MaxLength(PhoneMaxLength)]
-        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Contact phone is not valid")]
+        //[RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Contact phone is not valid")]
         public string PhoneNumber { get; set; } = string.Empty;
 
         //could be a picture

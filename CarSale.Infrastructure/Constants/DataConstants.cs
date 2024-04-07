@@ -37,8 +37,8 @@ namespace CarSale.Infrastructure.Constants
             public const int EmailMaxLength = 50;
             public const int EmailMinLength = 2;
 
-            public const int PhoneMaxLength = 10;
-            public const int PhoneMinLength = 2;
+            public const int PhoneMaxLength = 15;
+            public const int PhoneMinLength = 7;
         }
         
         public static class Fuel

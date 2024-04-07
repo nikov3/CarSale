@@ -1,8 +1,10 @@
-﻿using CarSale.Core.Contracts;
+﻿using CarSale.Attributes;
+using CarSale.Core.Contracts;
 using CarSale.Core.Models.Dealer;
 using CarSale.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static CarSale.Core.Constants.MessageConstants;
 
 namespace CarSale.Controllers
 {
@@ -16,12 +18,9 @@ namespace CarSale.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Become()
+        [NotADealer]
+        public IActionResult Become()
         {
-            if (await dealerService.ExistsByIdAsync(User.Id()))
-            {
-                return BadRequest();
-            }
 
             var model = new BecomeDealerFormModel();
 
@@ -29,8 +28,21 @@ namespace CarSale.Controllers
         }
 
         [HttpPost]
+        [NotADealer]
         public async Task<IActionResult> Become(BecomeDealerFormModel model)
         {
+            if(await dealerService.UserWithPhoneNumberExistsAsync(User.Id()))
+            {
+                ModelState.AddModelError(nameof(model.PhoneNumber), PhoneExists);
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                return View(model);
+            }
+
+            await dealerService.CreateAsync(User.Id(), model.PhoneNumber);
+
             return RedirectToAction(nameof(OfferController.All), "Offer");
         }
     }
