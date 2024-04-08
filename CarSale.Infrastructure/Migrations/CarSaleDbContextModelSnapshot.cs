@@ -538,9 +538,11 @@ namespace CarSale.Infrastructure.Migrations
 
             modelBuilder.Entity("CarSale.Data.Models.Offer", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
@@ -562,6 +564,11 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.Property<int>("DealerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Desription")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("FuelId")
                         .HasColumnType("int");

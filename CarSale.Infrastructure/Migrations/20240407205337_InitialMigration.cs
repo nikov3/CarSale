@@ -29,6 +29,8 @@ namespace CarSale.Infrastructure.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -102,7 +104,7 @@ namespace CarSale.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Transmitions",
+                name: "Transmissions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -111,7 +113,7 @@ namespace CarSale.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transmitions", x => x.Id);
+                    table.PrimaryKey("PK_Transmissions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -239,9 +241,7 @@ namespace CarSale.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ContactEmail = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ContactPhone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -279,7 +279,8 @@ namespace CarSale.Infrastructure.Migrations
                 name: "Offers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DealerId = table.Column<int>(type: "int", nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: false),
                     CarModelId = table.Column<int>(type: "int", nullable: false),
@@ -290,7 +291,10 @@ namespace CarSale.Infrastructure.Migrations
                     CityId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Year = table.Column<decimal>(type: "decimal(4,0)", nullable: false),
-                    Milage = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Milage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Desription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -332,9 +336,9 @@ namespace CarSale.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Offers_Transmitions_TransmissionId",
+                        name: "FK_Offers_Transmissions_TransmissionId",
                         column: x => x.TransmissionId,
-                        principalTable: "Transmitions",
+                        principalTable: "Transmissions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -343,6 +347,127 @@ namespace CarSale.Infrastructure.Migrations
                         principalTable: "Types",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Brands",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "All" },
+                    { 2, "Audi" },
+                    { 3, "BMW" },
+                    { 4, "Chevrolet" },
+                    { 5, "Ferrari" },
+                    { 6, "Ford" },
+                    { 7, "Honda" },
+                    { 8, "Hyundai" },
+                    { 9, "Jaguar" },
+                    { 10, "Kia" },
+                    { 11, "Land Rover" },
+                    { 12, "Lexus" },
+                    { 13, "Mazda" },
+                    { 14, "MercedesBenz" },
+                    { 15, "Nissan" },
+                    { 16, "Porsche" },
+                    { 17, "Subaru" },
+                    { 18, "Tesla" },
+                    { 19, "Toyota" },
+                    { 20, "Volkswagen" },
+                    { 21, "Volvo" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Cities",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Sofia" },
+                    { 2, "Plovdiv" },
+                    { 3, "Varna" },
+                    { 4, "Burgas" },
+                    { 5, "Ruse" },
+                    { 6, "Stara Zagora" },
+                    { 7, "Pleven" },
+                    { 8, "Sliven" },
+                    { 9, "Dobrich" },
+                    { 10, "Shumen" },
+                    { 11, "Veliko Tarnovo" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Colors",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Black" },
+                    { 2, "Brown" },
+                    { 3, "Blue" },
+                    { 4, "Gray" },
+                    { 5, "Green" },
+                    { 6, "Orange" },
+                    { 7, "Pink" },
+                    { 8, "Red" },
+                    { 9, "Yellow" },
+                    { 10, "White" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Fuels",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Gasoline" },
+                    { 2, "Diesel" },
+                    { 3, "Hybrid" },
+                    { 4, "EV" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Transmissions",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Automatic" },
+                    { 2, "Manual" },
+                    { 3, "Semi-automatic" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Types",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Convertible" },
+                    { 2, "Coupe" },
+                    { 3, "Hatchback" },
+                    { 4, "SUV" },
+                    { 5, "Sedan" },
+                    { 6, "Wagon" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CarModels",
+                columns: new[] { "Id", "BrandId", "Name" },
+                values: new object[,]
+                {
+                    { 1, 1, "All" },
+                    { 2, 2, "A1" },
+                    { 3, 2, "A2" },
+                    { 4, 2, "A3" },
+                    { 5, 2, "A4" },
+                    { 6, 2, "A5" },
+                    { 7, 2, "A6" },
+                    { 8, 2, "A7" },
+                    { 9, 2, "A8" },
+                    { 10, 3, "1er" },
+                    { 11, 3, "2er" },
+                    { 12, 3, "3er" },
+                    { 13, 3, "4er" },
+                    { 14, 3, "5er" },
+                    { 15, 3, "6er" },
+                    { 16, 3, "7er" },
+                    { 17, 3, "8er" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -388,6 +513,12 @@ namespace CarSale.Infrastructure.Migrations
                 name: "IX_CarModels_BrandId",
                 table: "CarModels",
                 column: "BrandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dealers_PhoneNumber",
+                table: "Dealers",
+                column: "PhoneNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dealers_UserId",
@@ -474,7 +605,7 @@ namespace CarSale.Infrastructure.Migrations
                 name: "Fuels");
 
             migrationBuilder.DropTable(
-                name: "Transmitions");
+                name: "Transmissions");
 
             migrationBuilder.DropTable(
                 name: "Types");

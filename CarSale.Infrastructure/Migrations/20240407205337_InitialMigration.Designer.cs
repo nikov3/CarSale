@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarSale.Infrastructure.Migrations
 {
     [DbContext(typeof(CarSaleDbContext))]
-    [Migration("20240407131031_ChangedApplicationUserAndDealer")]
-    partial class ChangedApplicationUserAndDealer
+    [Migration("20240407205337_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -479,15 +479,19 @@ namespace CarSale.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("ContactPhone")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -536,9 +540,11 @@ namespace CarSale.Infrastructure.Migrations
 
             modelBuilder.Entity("CarSale.Data.Models.Offer", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
@@ -560,6 +566,11 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.Property<int>("DealerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Desription")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("FuelId")
                         .HasColumnType("int");

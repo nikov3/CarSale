@@ -1,14 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
+using static CarSale.Infrastructure.Constants.DataConstants.Offer;
 
 namespace CarSale.Data.Models
 {
     public class Offer
     {
 		[Key]
-		public Guid Id { get; set; } = Guid.NewGuid();
+		public int Id { get; set; }
 
 		public int DealerId { get; set; }
 
@@ -66,7 +65,7 @@ namespace CarSale.Data.Models
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public int Price { get; set; }
+        public decimal Price { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(4,0)")]
@@ -78,6 +77,10 @@ namespace CarSale.Data.Models
 
         [Required]
         public string ImageUrl { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(DescriptionMaxLength)]
+        public string Desription { get; set; } = string.Empty;
 
         [Required]
         public DateTime CreatedOn { get; set; }
