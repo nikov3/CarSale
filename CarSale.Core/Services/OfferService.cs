@@ -127,6 +127,13 @@ namespace CarSale.Core.Services
         {
             Offer offer = new Offer()
             {
+                BrandId = model.BrandId,
+                CarModelId = model.CarModelId,
+                CarTypeId = model.CarTypeId,
+                ColorId = model.ColorId,
+                FuelId = model.FuelId,
+                TransmissionId = model.TransmissionId,
+                CityId = model.CityId,
                 HorsePower = model.HorsePower,
                 Year = model.Year,
                 Desription = model.Description,

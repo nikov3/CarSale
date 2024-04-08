@@ -14,7 +14,6 @@ namespace CarSale.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new OfferConfiguration());
             builder.ApplyConfiguration(new BrandConfiguration());
             builder.ApplyConfiguration(new CarModelConfiguration());
             builder.ApplyConfiguration(new CarTypeConfiguration());
