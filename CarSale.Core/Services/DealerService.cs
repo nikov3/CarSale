@@ -36,6 +36,11 @@ namespace CarSale.Core.Services
                 .AnyAsync(d => d.UserId == userId);
         }
 
+        public async Task<int?> GetDealerIdAsync(string userId)
+        {
+            return (await repository.AllReadOnly<Dealer>().FirstOrDefaultAsync(d => d.UserId == userId))?.Id;
+        }
+
         public async Task<bool> UserWithPhoneNumberExistsAsync(string phoneNumber)
         {
             return await repository.AllReadOnly<Dealer>()

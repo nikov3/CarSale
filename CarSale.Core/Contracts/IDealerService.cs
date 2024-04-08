@@ -13,5 +13,7 @@ namespace CarSale.Core.Contracts
         Task<bool> UserWithPhoneNumberExistsAsync(string phoneNumber);
 
         Task CreateAsync(string userId, string phoneNumber);
+
+        Task<int?> GetDealerIdAsync(string userId);
     }
 }
