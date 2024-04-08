@@ -8,11 +8,11 @@ namespace CarSale.Infrastructure.Data.SeedDb
     {
         public void Configure(EntityTypeBuilder<Brand> builder)
         {
-            builder
-                .HasMany(b => b.Offers)
-                .WithOne(o => o.Brand)
-                .HasForeignKey(o => o.BrandId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder
+            //    .HasMany(b => b.Offers)
+            //    .WithOne(o => o.Brand)
+            //    .HasForeignKey(o => o.BrandId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             builder
                .HasMany(b => b.CarModels)

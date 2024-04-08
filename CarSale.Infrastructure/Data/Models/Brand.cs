@@ -12,7 +12,7 @@ namespace CarSale.Data.Models
         [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
 
-        public ICollection<Offer> Offers { get; set; } = new List<Offer>();
+        public List<Offer> Offers { get; set; } = new List<Offer>();
 
         public ICollection<CarModel> CarModels { get; set; } = new List<CarModel>();
     }

@@ -4,6 +4,7 @@ using CarSale.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarSale.Infrastructure.Migrations
 {
     [DbContext(typeof(CarSaleDbContext))]
-    partial class CarSaleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240408163120_OfferConfigurationAdded")]
+    partial class OfferConfigurationAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +39,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("Brands");
 
                     b.HasData(
                         new
@@ -167,7 +169,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("CarModels", (string)null);
+                    b.ToTable("CarModels");
 
                     b.HasData(
                         new
@@ -289,7 +291,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Types", (string)null);
+                    b.ToTable("Types");
 
                     b.HasData(
                         new
@@ -339,7 +341,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
 
                     b.HasData(
                         new
@@ -414,7 +416,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors", (string)null);
+                    b.ToTable("Colors");
 
                     b.HasData(
                         new
@@ -493,7 +495,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Dealers", (string)null);
+                    b.ToTable("Dealers");
                 });
 
             modelBuilder.Entity("CarSale.Data.Models.Fuel", b =>
@@ -511,7 +513,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Fuels", (string)null);
+                    b.ToTable("Fuels");
 
                     b.HasData(
                         new
@@ -610,7 +612,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasIndex("TransmissionId");
 
-                    b.ToTable("Offers", (string)null);
+                    b.ToTable("Offers");
                 });
 
             modelBuilder.Entity("CarSale.Data.Models.Transmission", b =>
@@ -628,7 +630,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transmissions", (string)null);
+                    b.ToTable("Transmissions");
 
                     b.HasData(
                         new
