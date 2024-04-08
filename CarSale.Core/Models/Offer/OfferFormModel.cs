@@ -18,6 +18,13 @@ namespace CarSale.Core.Models.Offer
         [Display(Name = "Model")]
         public int CarModelId { get; set; }
 
+        [Required(ErrorMessage = RequiredMessage)]
+        [Range(typeof(int),
+            HorsePowerMinimum,
+            HorsePowerMaximum,
+            ErrorMessage = "HP must be between {1} and {2}")]
+        public int HorsePower { get; set; }
+
         public IEnumerable<OfferCarModelServiceModel> CarModels { get; set; } =
             new List<OfferCarModelServiceModel>();
 
@@ -57,14 +64,14 @@ namespace CarSale.Core.Models.Offer
             new List<OfferCityServiceModel>();
 
         [Required]
-        [Range(typeof(decimal),
+        [Range(typeof(int),
             YearMinimum,
             YearMaximum,
             ErrorMessage = "Year must be between {1} and {2}")]
         public int Year { get; set; }
 
         [Required]
-        [Range(typeof(decimal),
+        [Range(typeof(int),
             MilageMinimum,
             MilageMaximum,
             ErrorMessage = "Milage must be a positive number and less than {2} km")]

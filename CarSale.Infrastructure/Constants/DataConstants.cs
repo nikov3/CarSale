@@ -59,6 +59,9 @@ namespace CarSale.Infrastructure.Constants
         
         public static class Offer
         {
+            public const string HorsePowerMaximum = "1000";
+            public const string HorsePowerMinimum = "0";
+
             public const int DescriptionMaxLength = 200;
             public const int DescriptionMinLength = 5;
 

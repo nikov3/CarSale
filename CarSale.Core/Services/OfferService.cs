@@ -127,6 +127,7 @@ namespace CarSale.Core.Services
         {
             Offer offer = new Offer()
             {
+                HorsePower = model.HorsePower,
                 Year = model.Year,
                 Desription = model.Description,
                 ImageUrl = model.ImageUrl,

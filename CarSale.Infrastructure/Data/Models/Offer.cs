@@ -29,6 +29,9 @@ namespace CarSale.Data.Models
         public CarModel CarModel { get; set; } = null!;
 
         [Required]
+        public int HorsePower { get; set; }
+
+        [Required]
         public int FuelId { get; set; }
 
         [Required]
@@ -68,11 +71,11 @@ namespace CarSale.Data.Models
         public decimal Price { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(4,0)")]
+        //[Column(TypeName = "decimal(4,0)")]
         public int Year { get; set; }        
 
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
+        //[Column(TypeName = "decimal(18,2)")]
         public int Milage { get; set; }
 
         [Required]
