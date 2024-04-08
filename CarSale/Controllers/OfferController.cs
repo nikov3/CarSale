@@ -1,4 +1,8 @@
-﻿using CarSale.Core.Models.Offer;
+﻿using CarSale.Attributes;
+using CarSale.Core.Contracts;
+using CarSale.Core.Models.Offer;
+using CarSale.Data.Models;
+using CarSale.Extensions;
 using CarSale.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +13,18 @@ namespace CarSale.Controllers
 {
     public class OfferController : BaseController
     {
+        private readonly IOfferService offerService;
+
+        private readonly IDealerService dealerService;
+
+        public OfferController(
+            IOfferService _offerService,
+            IDealerService _dealerService)
+        {
+            offerService = _offerService;
+            dealerService = _dealerService;
+        }
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> All() 
@@ -35,15 +51,81 @@ namespace CarSale.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add() 
+        [MustBeADealer]
+        public async Task<IActionResult> Add() 
         {
-            return View();
+            var model = new OfferFormModel()
+            {
+                Brands = await offerService.AllBrandsAsync(),
+                CarModels = await offerService.AllCarModelsAsync(),
+                Fuels = await offerService.AllFuelsAsync(),
+                Transmissions = await offerService.AllTransmissionsAsync(),
+                CarTypes = await offerService.AllCarTypesAsync(),
+                Colors = await offerService.AllColorsAsync(),
+                Cities = await offerService.AllCitiesAsync(),
+            };
+
+            return View(model);
         }
 
         [HttpPost]
+        [MustBeADealer]
         public async Task<IActionResult> Add(OfferFormModel model)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (await offerService.BrandExistsAsync(model.BrandId) == false)
+            {
+                ModelState.AddModelError(nameof(model.BrandId), "");
+            }
+
+            if (await offerService.BrandExistsAsync(model.CarModelId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CarModelId), "");
+            }
+            
+            if (await offerService.BrandExistsAsync(model.CarTypeId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CarTypeId), "");
+            }
+            
+            if (await offerService.BrandExistsAsync(model.CityId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CityId), "");
+            }
+            
+            if (await offerService.BrandExistsAsync(model.ColorId) == false)
+            {
+                ModelState.AddModelError(nameof(model.ColorId), "");
+            }
+            
+            if (await offerService.BrandExistsAsync(model.TransmissionId) == false)
+            {
+                ModelState.AddModelError(nameof(model.TransmissionId), "");
+            }
+            
+            if (await offerService.BrandExistsAsync(model.FuelId) == false)
+            {
+                ModelState.AddModelError(nameof(model.FuelId), "");
+            }
+
+
+            if (ModelState.IsValid == false)
+            {
+                model.Brands = await offerService.AllBrandsAsync();
+                model.CarModels = await offerService.AllCarModelsAsync();
+                model.Fuels = await offerService.AllFuelsAsync();
+                model.Colors = await offerService.AllColorsAsync();
+                model.Cities = await offerService.AllCitiesAsync();
+                model.CarTypes = await offerService.AllCarTypesAsync();
+                model.Transmissions = await offerService.AllTransmissionsAsync();
+
+                return View(model);
+            }
+
+            int? dealerId = await dealerService.GetDealerIdAsync(User.Id());
+
+            int newOfferId = await offerService.CreateAsync(model, dealerId ?? 0);
+
+            return RedirectToAction(nameof(Details), new { id = newOfferId });
         }
 
         [HttpGet]
@@ -77,19 +159,11 @@ namespace CarSale.Controllers
 
 
 
-
-        private readonly CarSaleDbContext _context;
-
-        public OfferController(CarSaleDbContext context)
-        {
-            _context = context;
-        }
-
-        // GET: CarOfferController
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //// GET: CarOfferController
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
         //// GET: CarOfferController/Details/5
         //public ActionResult Details(int id)
@@ -98,32 +172,32 @@ namespace CarSale.Controllers
         //}
 
         // GET: CarOfferController/Create
-        public async Task<ActionResult> Create()
-        {
-            // Fetching the names of all CarBrands
-            var brands = await _context.Brands
-                .Select(c => new { c.Id, c.Name })
-                .ToListAsync();
+        //public async Task<ActionResult> Create()
+        //{
+        //    // Fetching the names of all CarBrands
+        //    var brands = await _context.Brands
+        //        .Select(c => new { c.Id, c.Name })
+        //        .ToListAsync();
 
-            var carModels = await _context.CarModels
-                .Select(cm => new { cm.Id, cm.Name, cm.BrandId })
-                .ToListAsync();
+        //    var carModels = await _context.CarModels
+        //        .Select(cm => new { cm.Id, cm.Name, cm.BrandId })
+        //        .ToListAsync();
 
-            var fuels = await _context.Fuels
-                .Select(c => new { c.Id, c.Name })
-                .ToListAsync();
+        //    var fuels = await _context.Fuels
+        //        .Select(c => new { c.Id, c.Name })
+        //        .ToListAsync();
 
-            var transmissions = await _context.Transmissions
-                .Select(c => new { c.Id, c.Name })
-                .ToListAsync();
+        //    var transmissions = await _context.Transmissions
+        //        .Select(c => new { c.Id, c.Name })
+        //        .ToListAsync();
 
-            // Creating a SelectList, setting "Id" as the value field and "Name" as the text field
-            ViewBag.Brand = new SelectList(brands, "Id", "Name");
-            ViewBag.CarModel = new SelectList(carModels, "Id", "Name");
-            ViewBag.Fuel = new SelectList(fuels, "Id", "Name");
-            ViewBag.Transmission = new SelectList(transmissions, "Id", "Name");
-            return View();
-        }
+        //    // Creating a SelectList, setting "Id" as the value field and "Name" as the text field
+        //    ViewBag.Brand = new SelectList(brands, "Id", "Name");
+        //    ViewBag.CarModel = new SelectList(carModels, "Id", "Name");
+        //    ViewBag.Fuel = new SelectList(fuels, "Id", "Name");
+        //    ViewBag.Transmission = new SelectList(transmissions, "Id", "Name");
+        //    return View();
+        //}
 
         //// POST: CarOfferController/Create
         //[HttpPost]
