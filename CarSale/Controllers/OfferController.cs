@@ -27,11 +27,11 @@ namespace CarSale.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> All() 
+        public async Task<IActionResult> All([FromQuery] AllOffersQueryModel query) 
         {
             var model = new AllOffersQueryModel();
 
-            return View();
+            return View(query);
         }
 
         [HttpGet]
@@ -77,32 +77,32 @@ namespace CarSale.Controllers
                 ModelState.AddModelError(nameof(model.BrandId), "");
             }
 
-            if (await offerService.BrandExistsAsync(model.CarModelId) == false)
+            if (await offerService.CarModelExistsAsync(model.CarModelId) == false)
             {
                 ModelState.AddModelError(nameof(model.CarModelId), "");
             }
             
-            if (await offerService.BrandExistsAsync(model.CarTypeId) == false)
+            if (await offerService.CarTypeExistsAsync(model.CarTypeId) == false)
             {
                 ModelState.AddModelError(nameof(model.CarTypeId), "");
             }
             
-            if (await offerService.BrandExistsAsync(model.CityId) == false)
+            if (await offerService.CityExistsAsync(model.CityId) == false)
             {
                 ModelState.AddModelError(nameof(model.CityId), "");
             }
             
-            if (await offerService.BrandExistsAsync(model.ColorId) == false)
+            if (await offerService.ColorsExistsAsync(model.ColorId) == false)
             {
                 ModelState.AddModelError(nameof(model.ColorId), "");
             }
             
-            if (await offerService.BrandExistsAsync(model.TransmissionId) == false)
+            if (await offerService.TransmissionExistsAsync(model.TransmissionId) == false)
             {
                 ModelState.AddModelError(nameof(model.TransmissionId), "");
             }
             
-            if (await offerService.BrandExistsAsync(model.FuelId) == false)
+            if (await offerService.FuelExistsAsync(model.FuelId) == false)
             {
                 ModelState.AddModelError(nameof(model.FuelId), "");
             }
