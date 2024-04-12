@@ -68,11 +68,9 @@ namespace CarSale.Data.Models
         public decimal Price { get; set; }
 
         [Required]
-        //[Column(TypeName = "decimal(4,0)")]
         public int Year { get; set; }        
 
         [Required]
-        //[Column(TypeName = "decimal(18,2)")]
         public int Milage { get; set; }
 
         [Required]

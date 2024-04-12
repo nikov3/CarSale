@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using static CarSale.Core.Constants.MessageConstants;
 using static CarSale.Infrastructure.Constants.DataConstants.Offer;
 
@@ -14,10 +13,6 @@ namespace CarSale.Core.Models.Offer
         public IEnumerable<OfferBrandServiceModel> Brands { get; set; } =
             new List<OfferBrandServiceModel>();
 
-        //[Required(ErrorMessage = RequiredMessage)]
-        //[Display(Name = "Model")]
-        //public int CarModelId { get; set; }
-
         [Required(ErrorMessage = RequiredMessage)]
         [Display(Name = "Model")]
         [StringLength(CarModelMaxLength,
@@ -31,9 +26,6 @@ namespace CarSale.Core.Models.Offer
             HorsePowerMaximum,
             ErrorMessage = "HP must be between {1} and {2}")]
         public int HorsePower { get; set; }
-
-        //public IEnumerable<OfferCarModelServiceModel> CarModels { get; set; } =
-        //    new List<OfferCarModelServiceModel>();
 
         [Required(ErrorMessage = RequiredMessage)]
         [Display(Name = "Fuel")]

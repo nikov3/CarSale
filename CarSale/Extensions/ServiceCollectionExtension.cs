@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarSale.Extensions
 {
-	public static class ServiceCollectionExtension
+    public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {

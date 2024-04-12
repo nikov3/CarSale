@@ -1,5 +1,4 @@
 ﻿using CarSale.Core.Contracts;
-using CarSale.Core.Models.Home;
 using CarSale.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

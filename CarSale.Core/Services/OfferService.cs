@@ -125,17 +125,6 @@ namespace CarSale.Core.Services
             throw new NotImplementedException();
         }
 
-        //public async Task<IEnumerable<OfferCarModelServiceModel>> AllCarModelsAsync()
-        //{
-        //    return await repository.AllReadOnly<CarModel>()
-        //        .Select(cm =>  new OfferCarModelServiceModel()
-        //        {
-        //            Id = cm.Id,
-        //            Name = cm.Name,
-        //        })
-        //        .ToListAsync();
-        //}
-
         public async Task<IEnumerable<OfferCarTypeServiceModel>> AllCarTypesAsync()
         {
             return await repository.AllReadOnly<CarType>()
@@ -196,12 +185,6 @@ namespace CarSale.Core.Services
             return await repository.AllReadOnly<Brand>()
                 .AnyAsync(b => b.Id == brandId);
         }
-
-        //public async Task<bool> CarModelExistsAsync(int carModelId)
-        //{
-        //    return await repository.AllReadOnly<CarModel>()
-        //        .AnyAsync(cm => cm.Id == carModelId);
-        //}
 
         public async Task<bool> CarTypeExistsAsync(int carTypeId)
         {

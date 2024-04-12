@@ -1,13 +1,9 @@
 ﻿using CarSale.Attributes;
 using CarSale.Core.Contracts;
 using CarSale.Core.Models.Offer;
-using CarSale.Data.Models;
 using CarSale.Extensions;
-using CarSale.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace CarSale.Controllers
 {

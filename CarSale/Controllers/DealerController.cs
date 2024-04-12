@@ -2,7 +2,6 @@
 using CarSale.Core.Contracts;
 using CarSale.Core.Models.Dealer;
 using CarSale.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static CarSale.Core.Constants.MessageConstants;
 
