@@ -48,5 +48,15 @@ namespace CarSale.Core.Contracts
             int offersPerPage = 1);
 
         Task<IEnumerable<string>> AllBrandsNamesAsync();
+
+        Task<IEnumerable<string>> AllFuelsNamesAsync();
+
+        Task<IEnumerable<string>> AllTransmissionsNamesAsync();
+
+        Task<IEnumerable<string>> AllCarTypesNamesAsync();
+        
+        Task<IEnumerable<string>> AllColorsNamesAsync();
+        
+        Task<IEnumerable<string>> AllCitiesNamesAsync();
     }
 }

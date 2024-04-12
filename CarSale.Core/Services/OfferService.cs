@@ -5,6 +5,7 @@ using CarSale.Core.Models.Offer;
 using CarSale.Data.Models;
 using CarSale.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace CarSale.Core.Services
 {
@@ -82,7 +83,7 @@ namespace CarSale.Core.Services
                     .OrderBy(o => o.Price),
                 OfferSorting.CarYear => offersToShow
                     .OrderByDescending(o => o.Year)
-                    .OrderByDescending (o => o.Id),
+                    .ThenByDescending (o => o.Id),
                 _ => offersToShow
                     .OrderByDescending(o => o.Id)
             };
@@ -108,7 +109,54 @@ namespace CarSale.Core.Services
             };
         }
 
+        public async Task<IEnumerable<string>> AllBrandsNamesAsync()
+        {
+            return await repository.AllReadOnly<Brand>()
+                .Select(b => b.Name)
+                .Distinct()
+                .ToListAsync();
+        }
 
+        public async Task<IEnumerable<string>> AllFuelsNamesAsync()
+        {
+            return await repository.AllReadOnly<Fuel>()
+                .Select(f => f.Name)
+                .Distinct()
+                .ToListAsync();
+        }
+        
+        public async Task<IEnumerable<string>> AllTransmissionsNamesAsync()
+        {
+            return await repository.AllReadOnly<Transmission>()
+                .Select(t => t.Name)
+                .Distinct()
+                .ToListAsync();
+        }
+        
+        public async Task<IEnumerable<string>> AllCarTypesNamesAsync()
+        {
+            return await repository.AllReadOnly<CarType>()
+                .Select(ct => ct.Name)
+                .Distinct()
+                .ToListAsync();
+        }
+        
+        public async Task<IEnumerable<string>> AllColorsNamesAsync()
+        {
+            return await repository.AllReadOnly<Color>()
+                .Select(c => c.Name)
+                .Distinct()
+                .ToListAsync();
+        }
+        
+        public async Task<IEnumerable<string>> AllCitiesNamesAsync()
+        {
+            return await repository.AllReadOnly<City>()
+                .Select(c => c.Name)
+                .Distinct()
+                .ToListAsync();
+        }
+        
         public async Task<IEnumerable<OfferBrandServiceModel>> AllBrandsAsync()
         {
             return await repository.AllReadOnly<Brand>()
@@ -118,11 +166,6 @@ namespace CarSale.Core.Services
                     Name = b.Name,
                 })
                 .ToListAsync();
-        }
-
-        public Task<IEnumerable<string>> AllBrandsNamesAsync()
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<OfferCarTypeServiceModel>> AllCarTypesAsync()

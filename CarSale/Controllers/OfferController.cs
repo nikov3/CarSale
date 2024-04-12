@@ -23,9 +23,29 @@ namespace CarSale.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> All([FromQuery] AllOffersQueryModel query) 
+        public async Task<IActionResult> All([FromQuery]AllOffersQueryModel query) 
         {
-            var model = new AllOffersQueryModel();
+            var model = await offerService.AllAsync(
+                query.Brand,
+                query.CarModel,
+                query.Fuel,
+                query.Transmission,
+                query.CarType,
+                query.Color,
+                query.City,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                query.OffersPerPage);
+
+            query.TotalOffersCount = model.TotalOffersCount;
+            query.Offers = model.Offers;
+            query.Brands = await offerService.AllBrandsNamesAsync();
+            query.Fuels = await offerService.AllFuelsNamesAsync();
+            query.Transmissions = await offerService.AllTransmissionsNamesAsync();
+            query.CarTypes = await offerService.AllCarTypesNamesAsync();
+            query.Colors = await offerService.AllColorsNamesAsync();
+            query.Cities = await offerService.AllCitiesNamesAsync();
 
             return View(query);
         }
