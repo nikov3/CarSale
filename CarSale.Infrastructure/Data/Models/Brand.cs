@@ -13,7 +13,5 @@ namespace CarSale.Data.Models
         public string Name { get; set; } = null!;
 
         public List<Offer> Offers { get; set; } = new List<Offer>();
-
-        public ICollection<CarModel> CarModels { get; set; } = new List<CarModel>();
     }
 }

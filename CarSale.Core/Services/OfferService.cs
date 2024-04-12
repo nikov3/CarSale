@@ -72,7 +72,7 @@ namespace CarSale.Core.Services
             {
                 string normalizedSearchTerm = searchTerm.ToLower();
                 offersToShow = offersToShow
-                    .Where(o => (o.CarModel.Name.ToLower().Contains(normalizedSearchTerm) ||
+                    .Where(o => (o.CarModel.ToLower().Contains(normalizedSearchTerm) ||
                                 o.Desription.ToLower().Contains(normalizedSearchTerm)));
             }
 
@@ -93,7 +93,7 @@ namespace CarSale.Core.Services
                 .Select(o => new OfferServiceModel()
                 {
                     Id = o.Id,
-                    Title = o.Brand.Name + " " + o.CarModel.Name,
+                    Title = o.Brand.Name + " " + o.CarModel,
                     ImageUrl = o.ImageUrl,
                     Price = o.Price,
                 })
@@ -125,16 +125,16 @@ namespace CarSale.Core.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<OfferCarModelServiceModel>> AllCarModelsAsync()
-        {
-            return await repository.AllReadOnly<CarModel>()
-                .Select(cm =>  new OfferCarModelServiceModel()
-                {
-                    Id = cm.Id,
-                    Name = cm.Name,
-                })
-                .ToListAsync();
-        }
+        //public async Task<IEnumerable<OfferCarModelServiceModel>> AllCarModelsAsync()
+        //{
+        //    return await repository.AllReadOnly<CarModel>()
+        //        .Select(cm =>  new OfferCarModelServiceModel()
+        //        {
+        //            Id = cm.Id,
+        //            Name = cm.Name,
+        //        })
+        //        .ToListAsync();
+        //}
 
         public async Task<IEnumerable<OfferCarTypeServiceModel>> AllCarTypesAsync()
         {
@@ -197,11 +197,11 @@ namespace CarSale.Core.Services
                 .AnyAsync(b => b.Id == brandId);
         }
 
-        public async Task<bool> CarModelExistsAsync(int carModelId)
-        {
-            return await repository.AllReadOnly<CarModel>()
-                .AnyAsync(cm => cm.Id == carModelId);
-        }
+        //public async Task<bool> CarModelExistsAsync(int carModelId)
+        //{
+        //    return await repository.AllReadOnly<CarModel>()
+        //        .AnyAsync(cm => cm.Id == carModelId);
+        //}
 
         public async Task<bool> CarTypeExistsAsync(int carTypeId)
         {
@@ -226,7 +226,7 @@ namespace CarSale.Core.Services
             Offer offer = new Offer()
             {
                 BrandId = model.BrandId,
-                CarModelId = model.CarModelId,
+                CarModel = model.CarModel,
                 CarTypeId = model.CarTypeId,
                 ColorId = model.ColorId,
                 FuelId = model.FuelId,
@@ -263,7 +263,7 @@ namespace CarSale.Core.Services
                 .Select(o => new OfferIndexServiceModel() 
                 {
                     Id = o.Id,
-                    Title = (o.Brand.Name + " " + o.CarModel.Name),
+                    Title = (o.Brand.Name + " " + o.CarModel),
                     ImageUrl = o.ImageUrl
                 }).ToListAsync();
         }

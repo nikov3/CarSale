@@ -62,6 +62,9 @@ namespace CarSale.Infrastructure.Constants
             public const string HorsePowerMaximum = "1000";
             public const string HorsePowerMinimum = "0";
 
+            public const int CarModelMaxLength = 20;
+            public const int CarModelMinLength = 1;
+
             public const int DescriptionMaxLength = 200;
             public const int DescriptionMinLength = 5;
 

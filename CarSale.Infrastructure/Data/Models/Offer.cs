@@ -22,11 +22,8 @@ namespace CarSale.Data.Models
         public Brand Brand { get; set; } = null!;
 
         [Required]
-        public int CarModelId { get; set; }
-
-        [Required]
-        [ForeignKey(nameof(CarModelId))]
-        public CarModel CarModel { get; set; } = null!;
+        [MaxLength(CarModelMaxLength)]
+        public string CarModel { get; set; } = string.Empty;
 
         [Required]
         public int HorsePower { get; set; }

@@ -15,7 +15,6 @@ namespace CarSale.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new BrandConfiguration());
-            builder.ApplyConfiguration(new CarModelConfiguration());
             builder.ApplyConfiguration(new CarTypeConfiguration());
             builder.ApplyConfiguration(new CityConfiguration());
             builder.ApplyConfiguration(new ColorConfiguration());
@@ -30,7 +29,6 @@ namespace CarSale.Infrastructure.Data
         public DbSet<ApplicationUser> Buyers { get; set; } = null!;
         public DbSet<Brand> Brands { get; set; } = null!;
         public DbSet<Dealer> Dealers  { get; set; } = null!;
-        public DbSet<CarModel> CarModels { get; set; } = null!;
         public DbSet<Offer> Offers { get; set; } = null!; 
         public DbSet<CarType> Types { get; set; } = null!;
         public DbSet<City> Cities { get; set; } = null!;

@@ -57,7 +57,6 @@ namespace CarSale.Controllers
             var model = new OfferFormModel()
             {
                 Brands = await offerService.AllBrandsAsync(),
-                CarModels = await offerService.AllCarModelsAsync(),
                 Fuels = await offerService.AllFuelsAsync(),
                 Transmissions = await offerService.AllTransmissionsAsync(),
                 CarTypes = await offerService.AllCarTypesAsync(),
@@ -75,11 +74,6 @@ namespace CarSale.Controllers
             if (await offerService.BrandExistsAsync(model.BrandId) == false)
             {
                 ModelState.AddModelError(nameof(model.BrandId), "");
-            }
-
-            if (await offerService.CarModelExistsAsync(model.CarModelId) == false)
-            {
-                ModelState.AddModelError(nameof(model.CarModelId), "");
             }
             
             if (await offerService.CarTypeExistsAsync(model.CarTypeId) == false)
@@ -111,7 +105,6 @@ namespace CarSale.Controllers
             if (ModelState.IsValid == false)
             {
                 model.Brands = await offerService.AllBrandsAsync();
-                model.CarModels = await offerService.AllCarModelsAsync();
                 model.Fuels = await offerService.AllFuelsAsync();
                 model.Colors = await offerService.AllColorsAsync();
                 model.Cities = await offerService.AllCitiesAsync();

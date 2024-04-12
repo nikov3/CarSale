@@ -10,7 +10,7 @@ namespace CarSale.Core.Contracts
 
         Task<IEnumerable<OfferBrandServiceModel>> AllBrandsAsync();
 
-        Task<IEnumerable<OfferCarModelServiceModel>> AllCarModelsAsync();
+        //Task<IEnumerable<OfferCarModelServiceModel>> AllCarModelsAsync();
         
         Task<IEnumerable<OfferFuelServiceModel>> AllFuelsAsync();
         
@@ -24,7 +24,7 @@ namespace CarSale.Core.Contracts
 
         Task<bool> BrandExistsAsync(int brandId);
         
-        Task<bool> CarModelExistsAsync(int carModelId);
+        //Task<bool> CarModelExistsAsync(int carModelId);
         
         Task<bool> FuelExistsAsync(int fuelId);
         
