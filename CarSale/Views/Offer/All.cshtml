@@ -1,14 +1,6 @@
 ﻿@model AllOffersQueryModel
 @{
-    ViewBag.Title = "All offers";
-}
-
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
-@*@model AllHousesQueryModel
-
-@{
-    ViewBag.Title = "All Houses";
+    ViewBag.Title = "All Offers";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -18,12 +10,72 @@
     <div class="row">
         <div class="form-group col-md-3 d-flex justify-content-between">
             <div class="form-group">
-                <label asp-for="Category"></label>
-                <select asp-for="Category" class="form-control">
+                <label asp-for="Brand"></label>
+                <select asp-for="Brand" class="form-control">
                     <option value="">All</option>
-                    @foreach (var category in Model.Categories)
+                    @foreach (var brand in Model.Brands)
                     {
-                        <option value="@category">@category</option>
+                        <option value="@brand">@brand</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Fuel"></label>
+                <select asp-for="Fuel" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var fuel in Model.Fuels)
+                    {
+                        <option value="@fuel">@fuel</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Transmission"></label>
+                <select asp-for="Transmission" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var transmission in Model.Transmissions)
+                    {
+                        <option value="@transmission">@transmission</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="CarType"></label>
+                <select asp-for="CarType" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var carType in Model.CarTypes)
+                    {
+                        <option value="@carType">@carType</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Color"></label>
+                <select asp-for="Color" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var color in Model.Colors)
+                    {
+                        <option value="@color">@color</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="City"></label>
+                <select asp-for="City" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var city in Model.Cities)
+                    {
+                        <option value="@city">@city</option>
                     }
                 </select>
             </div>
@@ -38,9 +90,9 @@
             <div class="form-group">
                 <label asp-for="Sorting"></label>
                 <select asp-for="Sorting" class="form-control">
-                    <option value="0">Newest</option>
+                    <option value="0">Newest offers first</option>
                     <option value="1">Lowest price first</option>
-                    <option value="2">Not rented first</option>
+                    <option value="2">Newest cars first</option>
                 </select>
             </div>
         </div>
@@ -61,47 +113,56 @@
         previousPage = 1;
     }
 
-    var maxPage = Math.Ceiling((double)Model.TotalHousesCount /
-        AllHousesQueryModel.HousesPerPage);
+    var maxPage = Math.Ceiling((double)Model.TotalOffersCount /
+        Model.OffersPerPage);
 }
 
 <div class="row mb-5">
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
         <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-           asp-controller="House"
+           asp-controller="Offer"
            asp-action="All"
            asp-route-currentPage="@previousPage"
-           asp-route-category="@Model.Category"
+           asp-route-brand="@Model.Brand"
+           asp-route-fuel="@Model.Fuel"
+           asp-route-transmission="@Model.Transmission"
+           asp-route-carType="@Model.CarType"
+           asp-route-color="@Model.Color"
+           asp-route-city="@Model.City"
            asp-route-searchTerm="@Model.SearchTerm"
            asp-route-sorting="@((int)Model.Sorting)"><<</a>
     </div>
 
     @{
         var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
-        !Model.Houses.Any();
+        !Model.Offers.Any();
     }
 
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
         <a class="btn btn-primary 
            @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
-           asp-controller="House"
+           asp-controller="Offer"
            asp-action="All"
            asp-route-currentPage="@(Model.CurrentPage + 1)"
-           asp-route-category="@Model.Category"
+           asp-route-brand="@Model.Brand"
+           asp-route-fuel="@Model.Fuel"
+           asp-route-transmission="@Model.Transmission"
+           asp-route-carType="@Model.CarType"
+           asp-route-color="@Model.Color"
+           asp-route-city="@Model.City"
            asp-route-searchTerm="@Model.SearchTerm"
            asp-route-sorting="@((int)Model.Sorting)">>></a>
     </div>
 </div>
 
-@if (!Model.Houses.Any())
+@if (!Model.Offers.Any())
 {
-    <h2 class="text-center">No houses found by the given criteria!</h2>
+    <h2 class="text-center">No offers found by the given criteria!</h2>
 }
 
 <div class="row">
-    @foreach (var house in Model.Houses)
+    @foreach (var offer in Model.Offers)
     {
-        <partial name="_HousePartial" model="@house" />
+        <partial name="_OfferPartial" model="@offer" />
     }
 </div>
-*@

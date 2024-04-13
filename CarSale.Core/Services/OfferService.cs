@@ -5,7 +5,6 @@ using CarSale.Core.Models.Offer;
 using CarSale.Data.Models;
 using CarSale.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace CarSale.Core.Services
 {
@@ -83,6 +82,7 @@ namespace CarSale.Core.Services
                     .OrderBy(o => o.Price),
                 OfferSorting.CarYear => offersToShow
                     .OrderByDescending(o => o.Year)
+                    .ThenBy(o => o.Price)
                     .ThenByDescending (o => o.Id),
                 _ => offersToShow
                     .OrderByDescending(o => o.Id)
