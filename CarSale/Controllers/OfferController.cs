@@ -236,7 +236,24 @@ namespace CarSale.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var model = new OfferDetailsViewModel();
+            if (await offerService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await offerService.HasDealerWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var offer = await offerService.OfferDetailsByIdAsync(id);
+
+            var model = new OfferDetailsViewModel()
+            {
+                Id = id,
+                ImageUrl = offer.ImageUrl,
+                Title = offer.Brand + " " + offer.CarModel
+            };
 
             return View(model);
         }
@@ -244,6 +261,18 @@ namespace CarSale.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(OfferDetailsViewModel model)
         {
+            if (await offerService.ExistsAsync(model.Id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await offerService.HasDealerWithIdAsync(model.Id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            await offerService.DeleteAsync(model.Id);
+
             return RedirectToAction(nameof(All));
         }
 

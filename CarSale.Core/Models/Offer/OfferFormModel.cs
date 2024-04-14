@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿    using System.ComponentModel.DataAnnotations;
 using static CarSale.Core.Constants.MessageConstants;
 using static CarSale.Infrastructure.Constants.DataConstants.Offer;
 

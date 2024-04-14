@@ -70,5 +70,7 @@ namespace CarSale.Core.Contracts
         Task<bool> HasDealerWithIdAsync(int offerId, string userId);
 
         Task<OfferFormModel?> GetOfferFormModelByIdAsync(int id);
+
+        Task DeleteAsync(int offerId);
     }
 }

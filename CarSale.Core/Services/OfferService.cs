@@ -403,5 +403,12 @@ namespace CarSale.Core.Services
 
             return offer;
         }
+
+        public async Task DeleteAsync(int offerId)
+        {
+            await repository.DeleteAsync<Offer>(offerId);
+
+            await repository.SaveChangesAsync();
+        }
     }
 }
