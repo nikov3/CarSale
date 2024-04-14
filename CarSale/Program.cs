@@ -1,5 +1,6 @@
 using CarSale.Extensions;
 using CarSale.ModelBinders;
+using Microsoft.AspNetCore.Builder;
 
 namespace CarSale
 {
@@ -23,11 +24,13 @@ namespace CarSale
 
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error/500");
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
                 app.UseHsts();
             }
 
