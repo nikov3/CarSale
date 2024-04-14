@@ -78,7 +78,7 @@ namespace CarSale.Data.Models
 
         [Required]
         [MaxLength(DescriptionMaxLength)]
-        public string Desription { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         public DateTime CreatedOn { get; set; }

@@ -74,7 +74,7 @@ namespace CarSale.Core.Services
                 string normalizedSearchTerm = searchTerm.ToLower();
                 offersToShow = offersToShow
                     .Where(o => (o.CarModel.ToLower().Contains(normalizedSearchTerm) ||
-                                o.Desription.ToLower().Contains(normalizedSearchTerm)));
+                                o.Description.ToLower().Contains(normalizedSearchTerm)));
             }
 
             offersToShow = sorting switch
@@ -255,7 +255,7 @@ namespace CarSale.Core.Services
                 CityId = model.CityId,
                 HorsePower = model.HorsePower,
                 Year = model.Year,
-                Desription = model.Description,
+                Description = model.Description,
                 ImageUrl = model.ImageUrl,
                 DealerId = dealerId,
                 Milage = model.Milage,
@@ -311,6 +311,9 @@ namespace CarSale.Core.Services
 
         public async Task<OfferDetailsServiceModel> OfferDetailsByIdAsync(int id)
         {
+            var offer = await repository.AllReadOnly<Offer>()
+                .Where(o => o.Id == id).FirstAsync();
+
             return await repository.AllReadOnly<Offer>()
                 .Where(o => o.Id == id)
                 .Select(o => new OfferDetailsServiceModel()
@@ -320,20 +323,20 @@ namespace CarSale.Core.Services
                     CarModel = o.CarModel,
                     Dealer = new Models.Dealer.DealerServiceModel()
                     {
-                        Email = o.Dealer.User.Email,
+                        Email = " ",//o.Dealer.User.FirstName + " " + o.Dealer.User.LastName,
                         PhoneNumber = o.Dealer.PhoneNumber
                     },
                     HorsePower = o.HorsePower,
                     Fuel = o.Fuel.Name,
                     Transmission = o.Transmission.Name,
-                    CarType = o.CarType.Name,
+                    CarType =  o.CarType.Name,
                     Color = o.Color.Name,
                     City = o.City.Name,
                     Price = o.Price,
                     Year = o.Year,
                     Milage = o.Milage,
                     ImageUrl = o.ImageUrl,
-                    Description = o.Desription
+                    Description = o.Description
                     //CreatedOn = o.CreatedOn.ToString(),
                 })
                 .FirstAsync();
@@ -352,7 +355,7 @@ namespace CarSale.Core.Services
                 offer.CarTypeId = model.CarTypeId;
                 offer.ColorId = model.ColorId;
                 offer.CityId = model.CityId;
-                offer.Desription = model.Description;
+                offer.Description = model.Description;
                 offer.Price = model.Price;
                 offer.Year = model.Year;
                 offer.Milage = model.Milage;
@@ -385,7 +388,7 @@ namespace CarSale.Core.Services
                     HorsePower = o.HorsePower,
                     Year = o.Year,
                     Milage = o.Milage,
-                    Description = o.Desription,
+                    Description = o.Description,
                     ImageUrl = o.ImageUrl,
                     Price = o.Price
                 })
