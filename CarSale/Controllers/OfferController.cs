@@ -53,9 +53,21 @@ namespace CarSale.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            var model = new AllOffersQueryModel();
+            var userId = User.Id();
+            IEnumerable<OfferServiceModel> model = null;
 
-            return View();
+            if(await dealerService.ExistsByIdAsync(userId))
+            {
+                int dealerId = await dealerService.GetDealerIdAsync(userId) ?? 0;
+                model = await offerService.AllOffersByDealerIdAsync(dealerId);
+            }
+            else
+            {
+                return StatusCode(401);
+            }
+            //fix if needed(my offers in tab, should be visible by dealer an not user)
+
+            return View(model);
         }
 
         [HttpGet]

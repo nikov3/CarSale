@@ -91,13 +91,7 @@ namespace CarSale.Core.Services
             var offes = await offersToShow
                 .Skip((currentPage - 1) * offersPerPage)
                 .Take(offersPerPage)
-                .Select(o => new OfferServiceModel()
-                {
-                    Id = o.Id,
-                    Title = o.Brand.Name + " " + o.CarModel,
-                    ImageUrl = o.ImageUrl,
-                    Price = o.Price,
-                })
+                .ProjectToOfferServiceModel()
                 .ToListAsync();
 
             int totalOffers = await offersToShow.CountAsync();
@@ -298,6 +292,14 @@ namespace CarSale.Core.Services
         {
             return await repository.AllReadOnly<Transmission>()
                 .AnyAsync(t => t.Id == transmissionId);
+        }
+
+        public async Task<IEnumerable<OfferServiceModel>> AllOffersByDealerIdAsync(int dealerId)
+        {
+            return await repository .AllReadOnly<Offer>()
+                .Where(o => o.DealerId == dealerId)
+                .ProjectToOfferServiceModel()
+                .ToListAsync();
         }
     }
 }

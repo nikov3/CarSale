@@ -58,5 +58,7 @@ namespace CarSale.Core.Contracts
         Task<IEnumerable<string>> AllColorsNamesAsync();
         
         Task<IEnumerable<string>> AllCitiesNamesAsync();
+
+        Task<IEnumerable<OfferServiceModel>> AllOffersByDealerIdAsync(int dealerId);
     }
 }
