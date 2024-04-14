@@ -60,5 +60,15 @@ namespace CarSale.Core.Contracts
         Task<IEnumerable<string>> AllCitiesNamesAsync();
 
         Task<IEnumerable<OfferServiceModel>> AllOffersByDealerIdAsync(int dealerId);
+
+        Task<bool> ExistsAsync(int id);
+
+        Task<OfferDetailsServiceModel> OfferDetailsByIdAsync(int id);
+
+        Task EditAsync(int offerId, OfferFormModel model);
+
+        Task<bool> HasDealerWithIdAsync(int offerId, string userId);
+
+        Task<OfferFormModel?> GetOfferFormModelByIdAsync(int id);
     }
 }

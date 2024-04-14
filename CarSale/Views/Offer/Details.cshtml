@@ -1,7 +1,50 @@
-﻿@model OfferDetailsViewModel
+﻿@model OfferDetailsServiceModel
 @{
-    ViewData["Title"] = "Offer Details";
+    ViewBag.Title = "Offer Details";
 }
 
-<h2 class="text-center">@ViewData["Title"]</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="House Image">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Brand @Model.CarModel</u></p>
+            <p>
+                Price:
+                <b>@String.Format("{0:f2}", Model.Price) BGN</b>
+            </p>
+            <p>Horse power: <b>@Model.HorsePower</b></p>
+            <p>Year: <b>@Model.Year</b></p>
+            <p>Fuel: <b>@Model.Fuel</b></p>
+            <p>Transmission: <b>@Model.Transmission</b></p>
+            <p>Milage: <b>@Model.Milage</b></p>
+            <p>CarType: <b>@Model.CarType</b></p>
+            <p>Color: <b>@Model.Color</b></p>
+            <p>Located in: <b>@Model.City</b></p>
+            <p>@Model.Description</p>
+            @*<p>Posted on: <b>@Model.CreatedOn</b></p>*@
+            <div class="form-inline">
+                @*@if (this.User.Identity.IsAuthenticated)
+                {}*@
+                    <a class="btn btn-warning" asp-controller="Offer" asp-action="Edit"
+                       asp-route-id="@Model.Id">Edit</a>
+                    <a class="ml-2 btn btn-danger" asp-controller="Offer" asp-action="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
+                
+            </div>
+            <p></p>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Dealer Info</h5>
+                    <p class="card-text">Email:  @Model.Dealer.Email</p>
+                    <p class="card-text">Phone Number: @Model.Dealer.PhoneNumber</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -63,7 +63,7 @@ namespace CarSale.Controllers
             }
             else
             {
-                return StatusCode(401);
+                return Unauthorized();
             }
             //fix if needed(my offers in tab, should be visible by dealer an not user)
 
@@ -73,7 +73,12 @@ namespace CarSale.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = new OfferDetailsViewModel();
+            if(await offerService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            var model = await offerService.OfferDetailsByIdAsync(id);
 
             return View(model);
         }
@@ -101,32 +106,32 @@ namespace CarSale.Controllers
         {
             if (await offerService.BrandExistsAsync(model.BrandId) == false)
             {
-                ModelState.AddModelError(nameof(model.BrandId), "");
+                ModelState.AddModelError(nameof(model.BrandId), "Brand does not exist");
             }
             
             if (await offerService.CarTypeExistsAsync(model.CarTypeId) == false)
             {
-                ModelState.AddModelError(nameof(model.CarTypeId), "");
+                ModelState.AddModelError(nameof(model.CarTypeId), "Car type does not exist");
             }
             
             if (await offerService.CityExistsAsync(model.CityId) == false)
             {
-                ModelState.AddModelError(nameof(model.CityId), "");
+                ModelState.AddModelError(nameof(model.CityId), "City does not exist");
             }
             
             if (await offerService.ColorsExistsAsync(model.ColorId) == false)
             {
-                ModelState.AddModelError(nameof(model.ColorId), "");
+                ModelState.AddModelError(nameof(model.ColorId), "Color does not exist");
             }
             
             if (await offerService.TransmissionExistsAsync(model.TransmissionId) == false)
             {
-                ModelState.AddModelError(nameof(model.TransmissionId), "");
+                ModelState.AddModelError(nameof(model.TransmissionId), "Transmission does not exist");
             }
             
             if (await offerService.FuelExistsAsync(model.FuelId) == false)
             {
-                ModelState.AddModelError(nameof(model.FuelId), "");
+                ModelState.AddModelError(nameof(model.FuelId), "Fuel does not exist");
             }
 
 
@@ -152,7 +157,17 @@ namespace CarSale.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var model = new OfferFormModel();
+            if(await offerService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if(await offerService.HasDealerWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var model = await offerService.GetOfferFormModelByIdAsync(id);
 
             return View(model);
         }
@@ -160,7 +175,62 @@ namespace CarSale.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, OfferFormModel model)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (await offerService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await offerService.HasDealerWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            if (await offerService.BrandExistsAsync(model.BrandId) == false)
+            {
+                ModelState.AddModelError(nameof(model.BrandId), "Brand does not exist");
+            }
+
+            if (await offerService.CarTypeExistsAsync(model.CarTypeId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CarTypeId), "Car type does not exist");
+            }
+
+            if (await offerService.CityExistsAsync(model.CityId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CityId), "City does not exist");
+            }
+
+            if (await offerService.ColorsExistsAsync(model.ColorId) == false)
+            {
+                ModelState.AddModelError(nameof(model.ColorId), "Color does not exist");
+            }
+
+            if (await offerService.TransmissionExistsAsync(model.TransmissionId) == false)
+            {
+                ModelState.AddModelError(nameof(model.TransmissionId), "Transmission does not exist");
+            }
+
+            if (await offerService.FuelExistsAsync(model.FuelId) == false)
+            {
+                ModelState.AddModelError(nameof(model.FuelId), "Fuel does not exist");
+            }
+
+
+            if (ModelState.IsValid == false)
+            {
+                model.Brands = await offerService.AllBrandsAsync();
+                model.Fuels = await offerService.AllFuelsAsync();
+                model.Colors = await offerService.AllColorsAsync();
+                model.Cities = await offerService.AllCitiesAsync();
+                model.CarTypes = await offerService.AllCarTypesAsync();
+                model.Transmissions = await offerService.AllTransmissionsAsync();
+
+                return View(model);
+            }
+
+            await offerService.EditAsync(id, model);
+
+            return RedirectToAction(nameof(Details), new { id });
         }
 
         [HttpGet]

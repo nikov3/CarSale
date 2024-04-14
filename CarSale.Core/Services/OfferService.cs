@@ -5,6 +5,7 @@ using CarSale.Core.Models.Offer;
 using CarSale.Data.Models;
 using CarSale.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CarSale.Core.Services
 {
@@ -300,6 +301,107 @@ namespace CarSale.Core.Services
                 .Where(o => o.DealerId == dealerId)
                 .ProjectToOfferServiceModel()
                 .ToListAsync();
+        }
+
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await repository.AllReadOnly<Offer>()
+                .AnyAsync(o => o.Id == id);
+        }
+
+        public async Task<OfferDetailsServiceModel> OfferDetailsByIdAsync(int id)
+        {
+            return await repository.AllReadOnly<Offer>()
+                .Where(o => o.Id == id)
+                .Select(o => new OfferDetailsServiceModel()
+                {
+                    Id = o.Id,
+                    Brand = o.Brand.Name,
+                    CarModel = o.CarModel,
+                    Dealer = new Models.Dealer.DealerServiceModel()
+                    {
+                        Email = o.Dealer.User.Email,
+                        PhoneNumber = o.Dealer.PhoneNumber
+                    },
+                    HorsePower = o.HorsePower,
+                    Fuel = o.Fuel.Name,
+                    Transmission = o.Transmission.Name,
+                    CarType = o.CarType.Name,
+                    Color = o.Color.Name,
+                    City = o.City.Name,
+                    Price = o.Price,
+                    Year = o.Year,
+                    Milage = o.Milage,
+                    ImageUrl = o.ImageUrl,
+                    Description = o.Desription
+                    //CreatedOn = o.CreatedOn.ToString(),
+                })
+                .FirstAsync();
+        }
+
+        public async Task EditAsync(int offerId, OfferFormModel model)
+        {
+            var offer = await repository.GetByIdAsync<Offer>(offerId);
+
+            if(offer != null)
+            {
+                offer.BrandId = model.BrandId;
+                offer.CarModel = model.CarModel;
+                offer.FuelId = model.FuelId;
+                offer.TransmissionId = model.TransmissionId;
+                offer.CarTypeId = model.CarTypeId;
+                offer.ColorId = model.ColorId;
+                offer.CityId = model.CityId;
+                offer.Desription = model.Description;
+                offer.Price = model.Price;
+                offer.Year = model.Year;
+                offer.Milage = model.Milage;
+                offer.ImageUrl = model.ImageUrl;
+                offer.HorsePower = model.HorsePower;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> HasDealerWithIdAsync(int offerId, string userId)
+        {
+            return await repository.AllReadOnly<Offer>()
+                .AnyAsync(o => o.Id == offerId && o.Dealer.UserId == userId);
+        }
+
+        public async Task<OfferFormModel?> GetOfferFormModelByIdAsync(int id)
+        {
+            var offer = await repository.AllReadOnly<Offer>()
+                .Where(o => o.Id == id)
+                .Select(o => new OfferFormModel()
+                {
+                    BrandId = o.BrandId,
+                    CarModel = o.CarModel,
+                    FuelId = o.FuelId,
+                    TransmissionId = o.TransmissionId,
+                    CarTypeId = o.CarTypeId,
+                    ColorId = o.ColorId,
+                    CityId = o.CityId,
+                    HorsePower = o.HorsePower,
+                    Year = o.Year,
+                    Milage = o.Milage,
+                    Description = o.Desription,
+                    ImageUrl = o.ImageUrl,
+                    Price = o.Price
+                })
+                .FirstOrDefaultAsync();
+
+            if(offer != null)
+            {
+                offer.Brands = await AllBrandsAsync();
+                offer.Fuels = await AllFuelsAsync();
+                offer.Transmissions = await AllTransmissionsAsync();
+                offer.CarTypes = await AllCarTypesAsync();
+                offer.Colors = await AllColorsAsync();
+                offer.Cities = await AllCitiesAsync();
+            }
+
+            return offer;
         }
     }
 }
