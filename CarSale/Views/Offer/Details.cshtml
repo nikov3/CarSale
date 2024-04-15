@@ -1,4 +1,6 @@
 ﻿@model OfferDetailsServiceModel
+@inject IDealerService dealerService
+@inject IOfferService offerService
 @{
     ViewBag.Title = "Offer Details";
 }
@@ -31,10 +33,14 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    <a class="btn btn-warning" asp-controller="Offer" asp-action="Edit"
-                       asp-route-id="@Model.Id">Edit</a>
-                    <a class="ml-2 btn btn-danger" asp-controller="Offer" asp-action="Delete"
-                       asp-route-id="@Model.Id">Delete</a>
+                    if (await offerService.HasDealerWithIdAsync(Model.Id, User.Id()))
+                    {
+                        <a class="btn btn-warning" asp-controller="Offer" asp-action="Edit"
+                           asp-route-id="@Model.Id">Edit</a>
+                        <a class="ml-2 btn btn-danger" asp-controller="Offer" asp-action="Delete"
+                           asp-route-id="@Model.Id">Delete</a>
+                    }
+                    
 				}
             </div>
             <p></p>

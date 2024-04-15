@@ -1,4 +1,6 @@
 ﻿@model OfferServiceModel
+@inject IDealerService dealerService
+@inject IOfferService offerService
 
 <div class="col-md-4">
     <div class="card mb-3">
@@ -14,10 +16,13 @@
                asp-route-information="@Model.GetInformation()" class="btn btn-success">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {
-                <a asp-controller="Offer" asp-action="Edit" asp-route-id="@Model.Id"
-               class="btn btn-warning">Edit</a>
-                <a asp-controller="Offer" asp-action="Delete" asp-route-id="@Model.Id"
-               class="btn btn-danger">Delete</a>
+                @if (await offerService.HasDealerWithIdAsync(Model.Id, User.Id()))
+                {
+                    <a asp-controller="Offer" asp-action="Edit" asp-route-id="@Model.Id"
+                   class="btn btn-warning">Edit</a>
+                    <a asp-controller="Offer" asp-action="Delete" asp-route-id="@Model.Id"
+                   class="btn btn-danger">Delete</a>                    
+                }
             }
         </div>
     </div>
