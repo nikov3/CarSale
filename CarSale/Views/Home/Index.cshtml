@@ -98,7 +98,8 @@
                      src="@offer.ImageUrl" alt="@offer.Title">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
-                        <a class="btn btn-primary" asp-controller="Offer" asp-action="Details" asp-route-id="@offer.Id" > @offer.Title</a>
+                        <a class="btn btn-primary" asp-controller="Offer" asp-action="Details"
+                           asp-route-id="@offer.Id" asp-route-information="@offer.GetInformation()"> @offer.Title</a>
                     </h5>
                 </div>
             </div>
@@ -113,6 +114,34 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+
+<div class="mb-5"></div>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary" id="statistics-button">Show Statistics</button>
+    </div>
+</div>
+
+<div class="mt-4 p-5 bg-light d-none" id="statistics">
+    <div class="row">
+        <h2 class="col-md-2 text-center" id="total-offers"></h2>
+        <h2 class="col-md-2 text-center" id="total-dealers"></h2>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('#statistics-button').on('click', ev => {
+            $.get('/api/statistic', data => {
+                $('#total-offers').text(data.totalOffers + ' Offers');
+                $('#total-dealers').text(data.totalDealers + ' Dealers');
+                $('#statistics').removeClass('d-none');
+                $('#statistics-button').hide();
+            });
+        });
+    </script>
+}
 
 @* change and find what the second one is for *@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

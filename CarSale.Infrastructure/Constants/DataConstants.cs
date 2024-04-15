@@ -69,6 +69,9 @@
 
             public const string MilageMaximum = "1000000";
             public const string MilageMinimum = "0";
+
+            public const int TitleMaxLength = 71;
+            public const int TitleMinLength = 4;
         }
         
         public static class Transmission

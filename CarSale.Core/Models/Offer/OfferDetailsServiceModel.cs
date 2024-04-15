@@ -1,15 +1,10 @@
-﻿using CarSale.Core.Models.Dealer;
-using CarSale.Core.Services;
-using System;
-using System.Collections.Generic;
+﻿using CarSale.Core.Contracts;
+using CarSale.Core.Models.Dealer;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarSale.Core.Models.Offer
 {
-    public class OfferDetailsServiceModel
+    public class OfferDetailsServiceModel : IOfferModel
     {
         public int Id { get; set; }
 
@@ -40,7 +35,9 @@ namespace CarSale.Core.Models.Offer
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; } = string.Empty;
 
-        public string Description { get; set; } = null!;
+        public string Description { get; set; } = string.Empty;
+
+        public string Title { get; set; } = string.Empty;
 
 
         //public int Id { get; set; }

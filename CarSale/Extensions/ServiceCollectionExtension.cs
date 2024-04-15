@@ -13,6 +13,7 @@ namespace CarSale.Extensions
         {
             services.AddScoped<IOfferService, OfferService>();
             services.AddScoped<IDealerService, DealerService>();
+            services.AddScoped<IStatisticService, StatisticService>();
 
             return services;
         }

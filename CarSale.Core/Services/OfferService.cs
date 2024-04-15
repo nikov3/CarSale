@@ -284,6 +284,8 @@ namespace CarSale.Core.Services
                 .Select(o => new OfferIndexServiceModel() 
                 {
                     Id = o.Id,
+                    CarModel = o.CarModel,
+                    Description = o.Description,
                     Title = (o.Brand.Name + " " + o.CarModel),
                     ImageUrl = o.ImageUrl
                 }).ToListAsync();
@@ -321,6 +323,7 @@ namespace CarSale.Core.Services
                     Id = o.Id,
                     Brand = o.Brand.Name,
                     CarModel = o.CarModel,
+                    Title = o.Brand.Name + " " + o.CarModel,
                     Dealer = new Models.Dealer.DealerServiceModel()
                     {
                         Email = " ",//o.Dealer.User.FirstName + " " + o.Dealer.User.LastName,
@@ -380,6 +383,7 @@ namespace CarSale.Core.Services
                 {
                     BrandId = o.BrandId,
                     CarModel = o.CarModel,
+                    Title = o.Brand.Name + " " + o.CarModel,
                     FuelId = o.FuelId,
                     TransmissionId = o.TransmissionId,
                     CarTypeId = o.CarTypeId,

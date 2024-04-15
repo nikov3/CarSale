@@ -1,10 +1,11 @@
-﻿    using System.ComponentModel.DataAnnotations;
+﻿using CarSale.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 using static CarSale.Core.Constants.MessageConstants;
 using static CarSale.Infrastructure.Constants.DataConstants.Offer;
 
 namespace CarSale.Core.Models.Offer
 {
-    public class OfferFormModel
+    public class OfferFormModel : IOfferModel
     {
         [Required(ErrorMessage = RequiredMessage)]
         [Display(Name = "Brand")]
@@ -18,7 +19,7 @@ namespace CarSale.Core.Models.Offer
         [StringLength(CarModelMaxLength,
             MinimumLength = CarModelMinLength,
             ErrorMessage = LengthMessage)]
-        public string CarModel { get; set; } = null!;
+        public string CarModel { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequiredMessage)]
         [Range(typeof(int),
@@ -80,11 +81,11 @@ namespace CarSale.Core.Models.Offer
         [StringLength(DescriptionMaxLength,
             MinimumLength = DescriptionMinLength, 
             ErrorMessage = LengthMessage)]
-        public string Description { get; set; } = null!;
+        public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequiredMessage)]
         [Display(Name = "Image URL")]
-        public string ImageUrl { get; set; } = null!;
+        public string ImageUrl { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequiredMessage)]
         [Range(typeof(decimal),
@@ -93,5 +94,6 @@ namespace CarSale.Core.Models.Offer
             ConvertValueInInvariantCulture = true,
             ErrorMessage = "Price must be a positive number and less than {2} leva")]
         public decimal Price { get; set; }
+        public string Title { get; set; } = string.Empty;
     }
 }

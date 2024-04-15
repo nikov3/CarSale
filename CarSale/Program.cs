@@ -1,6 +1,7 @@
 using CarSale.Extensions;
 using CarSale.ModelBinders;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarSale
 {
@@ -16,6 +17,7 @@ namespace CarSale
             builder.Services.AddControllersWithViews(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
             });
 
             builder.Services.AddApplicationServices();
@@ -42,8 +44,17 @@ namespace CarSale
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "Offer Details",
+                    pattern: "Offer/Details/{id}/{information}",
+                    defaults: new { Controller = "Offer", Action = "Details"}
+                );
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
+            });
+            
 
             app.Run();
         }

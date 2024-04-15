@@ -1,9 +1,11 @@
 ﻿using CarSale.Attributes;
 using CarSale.Core.Contracts;
+using CarSale.Core.Extensions;
 using CarSale.Core.Models.Offer;
 using CarSale.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 
 namespace CarSale.Controllers
 {
@@ -71,7 +73,7 @@ namespace CarSale.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string information)
         {
             if(await offerService.ExistsAsync(id) == false)
             {
@@ -79,6 +81,11 @@ namespace CarSale.Controllers
             }
 
             var model = await offerService.OfferDetailsByIdAsync(id);
+
+            if (information != model.GetInformation())
+            {
+                return BadRequest();
+            }
 
             return View(model);
         }
@@ -146,12 +153,12 @@ namespace CarSale.Controllers
 
                 return View(model);
             }
-
+            
             int? dealerId = await dealerService.GetDealerIdAsync(User.Id());
 
             int newOfferId = await offerService.CreateAsync(model, dealerId ?? 0);
 
-            return RedirectToAction(nameof(Details), new { id = newOfferId });
+            return RedirectToAction(nameof(Details), new { id = newOfferId, Information = model.GetInformation() });
         }
 
         [HttpGet]
@@ -230,7 +237,7 @@ namespace CarSale.Controllers
 
             await offerService.EditAsync(id, model);
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(Details), new { id, Information = model.GetInformation()});
         }
 
         [HttpGet]
@@ -251,6 +258,8 @@ namespace CarSale.Controllers
             var model = new OfferDetailsViewModel()
             {
                 Id = id,
+                CarModel = offer.CarModel,
+                Description = offer.Description,
                 ImageUrl = offer.ImageUrl,
                 Title = offer.Brand + " " + offer.CarModel
             };

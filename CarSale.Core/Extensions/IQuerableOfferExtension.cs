@@ -13,7 +13,9 @@ namespace System.Linq
                     Id = o.Id,
                     ImageUrl = o.ImageUrl,
                     Price = o.Price,
-                    Title = o.Brand.Name + " " + o.CarModel
+                    Title = o.Brand.Name + " " + o.CarModel,
+                    CarModel = o.CarModel,
+                    Description = o.Description
                 });
         }
     }
