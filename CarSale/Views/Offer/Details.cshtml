@@ -20,16 +20,16 @@
                 Price:
                 <b>@String.Format("{0:f2}", Model.Price) BGN</b>
             </p>
-            <p>Horse power: <b>@Model.HorsePower</b></p>
+            <p>Power: <b>@Model.HorsePower hp</b></p>
             <p>Year: <b>@Model.Year</b></p>
             <p>Fuel: <b>@Model.Fuel</b></p>
             <p>Transmission: <b>@Model.Transmission</b></p>
-            <p>Milage: <b>@Model.Milage</b></p>
+            <p>Milage: <b>@Model.Milage km</b></p>
             <p>CarType: <b>@Model.CarType</b></p>
             <p>Color: <b>@Model.Color</b></p>
             <p>Located in: <b>@Model.City</b></p>
-            <p>@Model.Description</p>
-            @*<p>Posted on: <b>@Model.CreatedOn</b></p>*@
+            <p>Description: @Model.Description</p>
+            <p>Posted on: <b>@Model.CreatedOn</b></p>
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
@@ -47,7 +47,6 @@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Dealer Info</h5>
-                    <p class="card-text">Email:  @Model.Dealer.Email</p>
                     <p class="card-text">Phone Number: @Model.Dealer.PhoneNumber</p>
                 </div>
             </div>

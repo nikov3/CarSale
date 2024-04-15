@@ -35,6 +35,8 @@ namespace CarSale.Core.Models.Offer
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; } = string.Empty;
 
+        public string CreatedOn { get; set; } = null!;
+
         public string Description { get; set; } = string.Empty;
 
         public string Title { get; set; } = string.Empty;

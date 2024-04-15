@@ -1,5 +1,4 @@
-﻿@*@model IndexViewModel*@
-@model IEnumerable<OfferIndexServiceModel>
+﻿@model IEnumerable<OfferIndexServiceModel>
 @{
     ViewData["Title"] = "Home Page";
     var offers = Model.ToList();
@@ -11,11 +10,6 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
-
-
-<a class="btn btn-primary" href="@Url.Action("Create", "Offer")">Go to Create Page</a>
-<a class="btn btn-primary" href="@Url.Action("Create", "Offer")">Create Car Offer</a>
-
 ﻿<style>
     body {
         font-family: Arial, sans-serif;
@@ -74,20 +68,10 @@
 
 <div class="header">
     <div class="container">
-        <h1>Car Finder</h1>
+        <h1>Car Sale</h1>
         <p>Find Your Dream Car</p>
     </div>
 </div>
-
-<div class="content">
-    <div class="container">
-        <h2>Discover Opportunities</h2>
-        <p>Explore a wide range of job openings and unlock your career potential.</p>
-        <a class="btn" href="/Job/Explore">Explore Jobs</a>
-    </div>
-</div>
-
-
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         @for (int i = 0; i < offers.Count(); i++)

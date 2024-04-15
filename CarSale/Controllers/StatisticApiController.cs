@@ -1,5 +1,4 @@
 ﻿using CarSale.Core.Contracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarSale.Controllers

@@ -5,7 +5,6 @@ using CarSale.Core.Models.Offer;
 using CarSale.Data.Models;
 using CarSale.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CarSale.Core.Services
 {
@@ -326,7 +325,6 @@ namespace CarSale.Core.Services
                     Title = o.Brand.Name + " " + o.CarModel,
                     Dealer = new Models.Dealer.DealerServiceModel()
                     {
-                        Email = " ",//o.Dealer.User.FirstName + " " + o.Dealer.User.LastName,
                         PhoneNumber = o.Dealer.PhoneNumber
                     },
                     HorsePower = o.HorsePower,
@@ -339,8 +337,10 @@ namespace CarSale.Core.Services
                     Year = o.Year,
                     Milage = o.Milage,
                     ImageUrl = o.ImageUrl,
-                    Description = o.Description
-                    //CreatedOn = o.CreatedOn.ToString(),
+                    Description = o.Description,
+                    CreatedOn = o.CreatedOn.Hour.ToString() + ":" + 
+                                o.CreatedOn.Minute.ToString() + " " + 
+                                o.CreatedOn.Date.ToString()
                 })
                 .FirstAsync();
         }
