@@ -325,12 +325,13 @@ namespace CarSale.Core.Services
                     Title = o.Brand.Name + " " + o.CarModel,
                     Dealer = new Models.Dealer.DealerServiceModel()
                     {
+                        FullName = $"{o.Dealer.User.FirstName} {o.Dealer.User.LastName}",
                         PhoneNumber = o.Dealer.PhoneNumber
                     },
                     HorsePower = o.HorsePower,
                     Fuel = o.Fuel.Name,
                     Transmission = o.Transmission.Name,
-                    CarType =  o.CarType.Name,
+                    CarType = o.CarType.Name,
                     Color = o.Color.Name,
                     City = o.City.Name,
                     Price = o.Price,
@@ -338,9 +339,7 @@ namespace CarSale.Core.Services
                     Milage = o.Milage,
                     ImageUrl = o.ImageUrl,
                     Description = o.Description,
-                    CreatedOn = o.CreatedOn.Hour.ToString() + ":" + 
-                                o.CreatedOn.Minute.ToString() + " " + 
-                                o.CreatedOn.Date.ToString()
+                    CreatedOn = $"{o.CreatedOn.Hour}:{o.CreatedOn.Minute} {o.CreatedOn.Date.ToString()}"
                 })
                 .FirstAsync();
         }
