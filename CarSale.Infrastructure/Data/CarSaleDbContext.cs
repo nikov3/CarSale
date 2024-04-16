@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarSale.Infrastructure.Data
 {
-    public class CarSaleDbContext : IdentityDbContext
+    public class CarSaleDbContext : IdentityDbContext<ApplicationUser>
     {
         public CarSaleDbContext(DbContextOptions<CarSaleDbContext> options)
             : base(options)
@@ -14,6 +14,7 @@ namespace CarSale.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new BrandConfiguration());
             builder.ApplyConfiguration(new CarTypeConfiguration());
             builder.ApplyConfiguration(new CityConfiguration());

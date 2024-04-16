@@ -1,5 +1,6 @@
 ﻿using CarSale.Core.Contracts;
 using CarSale.Core.Services;
+using CarSale.Data.Models;
 using CarSale.Infrastructure.Data;
 using CarSale.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Identity;
@@ -34,7 +35,7 @@ namespace CarSale.Extensions
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
             services
-                .AddDefaultIdentity<IdentityUser>(options =>
+                .AddDefaultIdentity<ApplicationUser>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireUppercase = false;
