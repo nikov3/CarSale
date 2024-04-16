@@ -33,7 +33,8 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    if (await offerService.HasDealerWithIdAsync(Model.Id, User.Id()))
+                    if (await offerService.HasDealerWithIdAsync(Model.Id, User.Id()) 
+                        || User.IsAdmin())
                     {
                         <a class="btn btn-warning" asp-controller="Offer" asp-action="Edit"
                            asp-route-id="@Model.Id">Edit</a>

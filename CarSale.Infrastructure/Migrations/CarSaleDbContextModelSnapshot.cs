@@ -168,7 +168,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
 
                     b.HasData(
                         new
@@ -288,7 +288,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Types");
+                    b.ToTable("Types", (string)null);
 
                     b.HasData(
                         new
@@ -338,7 +338,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
 
                     b.HasData(
                         new
@@ -413,7 +413,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Colors", (string)null);
 
                     b.HasData(
                         new
@@ -492,7 +492,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Dealers");
+                    b.ToTable("Dealers", (string)null);
 
                     b.HasData(
                         new
@@ -524,7 +524,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Fuels");
+                    b.ToTable("Fuels", (string)null);
 
                     b.HasData(
                         new
@@ -623,7 +623,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasIndex("TransmissionId");
 
-                    b.ToTable("Offers");
+                    b.ToTable("Offers", (string)null);
                 });
 
             modelBuilder.Entity("CarSale.Data.Models.Transmission", b =>
@@ -641,7 +641,7 @@ namespace CarSale.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transmissions");
+                    b.ToTable("Transmissions", (string)null);
 
                     b.HasData(
                         new

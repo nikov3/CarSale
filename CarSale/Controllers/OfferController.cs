@@ -167,7 +167,8 @@ namespace CarSale.Controllers
                 return BadRequest();
             }
 
-            if(await offerService.HasDealerWithIdAsync(id, User.Id()) == false)
+            if(await offerService.HasDealerWithIdAsync(id, User.Id()) == false
+                && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -185,7 +186,8 @@ namespace CarSale.Controllers
                 return BadRequest();
             }
 
-            if (await offerService.HasDealerWithIdAsync(id, User.Id()) == false)
+            if (await offerService.HasDealerWithIdAsync(id, User.Id()) == false
+                && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -246,7 +248,8 @@ namespace CarSale.Controllers
                 return BadRequest();
             }
 
-            if (await offerService.HasDealerWithIdAsync(id, User.Id()) == false)
+            if (await offerService.HasDealerWithIdAsync(id, User.Id()) == false
+                && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -273,7 +276,8 @@ namespace CarSale.Controllers
                 return BadRequest();
             }
 
-            if (await offerService.HasDealerWithIdAsync(model.Id, User.Id()) == false)
+            if (await offerService.HasDealerWithIdAsync(model.Id, User.Id()) == false
+                && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
