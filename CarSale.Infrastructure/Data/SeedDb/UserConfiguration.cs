@@ -15,12 +15,48 @@ namespace CarSale.Infrastructure.Data.SeedDb
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            //builder.HasData(SeedBrands());
+            var data = new SeedData();
+
+            builder.HasData(new ApplicationUser[] { data.DealerUser, data.GuestUser, data.AdminUser});
         }
 
-        private List<ApplicationUser> SeedBrands()
-        {
-            throw new NotImplementedException();
-        }
+        //private List<ApplicationUser> SeedUsers()
+        //{
+        //    var users = new List<ApplicationUser>
+        //    {
+        //        new ApplicationUser
+        //        {
+        //            Id = "",
+        //            UserName = "",
+        //            NormalizedUserName = "",
+        //            Email = "",
+        //            NormalizedEmail = "",
+        //            FirstName = "",
+        //            LastName = ""
+        //        },
+        //        new ApplicationUser
+        //        {
+        //            Id = "",
+        //            UserName = "",
+        //            NormalizedUserName = "",
+        //            Email = "",
+        //            NormalizedEmail = "",
+        //            FirstName = "",
+        //            LastName = ""
+        //        },
+        //        new ApplicationUser
+        //        {
+        //            Id = "",
+        //            UserName = "",
+        //            NormalizedUserName = "",
+        //            Email = "",
+        //            NormalizedEmail = "",
+        //            FirstName = "",
+        //            LastName = ""
+        //        }
+        //    };
+
+        //    return users;
+        //}
     }
 }

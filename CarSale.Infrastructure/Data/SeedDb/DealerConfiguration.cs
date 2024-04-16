@@ -13,6 +13,10 @@ namespace CarSale.Infrastructure.Data.SeedDb
                 .WithOne(o => o.Dealer)
                 .HasForeignKey(o => o.DealerId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            var data = new SeedData();
+
+            builder.HasData(new Dealer[] { data.Dealer, data.AdminDealer });
         }
     }
 }
