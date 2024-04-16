@@ -43,6 +43,7 @@ namespace CarSale.Extensions
                     options.Password.RequireDigit = false;
                     options.Password.RequireNonAlphanumeric = false;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<CarSaleDbContext>();
 
             return services;

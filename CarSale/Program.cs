@@ -49,12 +49,13 @@ namespace CarSale
                 endpoints.MapControllerRoute(
                     name: "Offer Details",
                     pattern: "Offer/Details/{id}/{information}",
-                    defaults: new { Controller = "Offer", Action = "Details"}
+                    defaults: new { Controller = "Offer", Action = "Details" }
                 );
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
             });
-            
+
+            app.CreateAdminRoleAsync();
 
             app.Run();
         }
