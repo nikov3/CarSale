@@ -22,6 +22,7 @@ namespace CarSale.Infrastructure.Data
             builder.ApplyConfiguration(new DealerConfiguration());
             builder.ApplyConfiguration(new FuelConfiguration());
             builder.ApplyConfiguration(new TransmissionConfiguration());
+            builder.ApplyConfiguration(new OfferConfiguration());
 
             base.OnModelCreating(builder);
         }
