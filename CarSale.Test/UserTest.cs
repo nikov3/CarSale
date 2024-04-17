@@ -1,15 +1,7 @@
-﻿using CarSale.Core.Contracts;
-using CarSale.Core.Models.Admin.User;
-using CarSale.Core.Services;
+﻿using CarSale.Core.Services;
 using CarSale.Data.Models;
 using CarSale.Infrastructure.Data.Common;
 using Moq;
-using NuGet.Protocol.Core.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarSale.Test
 {
@@ -30,7 +22,6 @@ namespace CarSale.Test
         [Test]
         public async Task UserFullNameAsync_WithValidUserId_ShouldReturnFullName()
         {
-            // Arrange
             var userId = "1";
             var user = new ApplicationUser
             {
@@ -42,34 +33,28 @@ namespace CarSale.Test
             _repositoryMock.Setup(r => r.GetByIdAsync<ApplicationUser>(userId))
                 .ReturnsAsync(user);
 
-            // Act
             var result = await _userService.UserFullNameAsync(userId);
 
-            // Assert
             Assert.That(result, Is.EqualTo($"{user.FirstName} {user.LastName}"));
         }
 
         [Test]
         public async Task UserFullNameAsync_WithInvalidUserId_ShouldReturnEmptyString()
         {
-            // Arrange
             var userId = "1";
             ApplicationUser user = null;
 
             _repositoryMock.Setup(r => r.GetByIdAsync<ApplicationUser>(userId))
                 .ReturnsAsync(user);
 
-            // Act
             var result = await _userService.UserFullNameAsync(userId);
 
-            // Assert
             Assert.That(result, Is.EqualTo(string.Empty));
         }
 
         [Test]
         public async Task AllAsync_WithUsers_ShouldReturnAllUsers()
         {
-            // Arrange
             var users = new List<ApplicationUser>
             {
                 new ApplicationUser
@@ -94,11 +79,8 @@ namespace CarSale.Test
             _repositoryMock.Setup(r => r.AllReadOnly<ApplicationUser>())
                 .Returns(new TestAsyncEnumerable<ApplicationUser>(users).AsQueryable());
 
-            // Act
-
             var result = await _userService.AllAsync();
 
-            // Assert
             Assert.That(result.Count(), Is.EqualTo(users.Count));
             Assert.That(result.First().Email, Is.EqualTo(users.First().Email));
             Assert.That(result.First().FullName, Is.EqualTo($"{users.First().FirstName} {users.First().LastName}"));
@@ -116,16 +98,13 @@ namespace CarSale.Test
         [Test]
         public async Task AllAsync_WithoutUsers_ShouldReturnEmptyCollection()
         {
-            // Arrange
             var users = new List<ApplicationUser>();
 
             _repositoryMock.Setup(r => r.AllReadOnly<ApplicationUser>())
                 .Returns(new TestAsyncEnumerable<ApplicationUser>(users).AsQueryable());
 
-            // Act
             var result = await _userService.AllAsync();
 
-            // Assert
             Assert.That(result.Count(), Is.EqualTo(users.Count));
         }
     }

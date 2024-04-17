@@ -1,16 +1,8 @@
-﻿using NUnit.Framework;
-using Moq;
+﻿using CarSale.Core.Models.Offer;
 using CarSale.Core.Services;
-using CarSale.Core.Models.Offer;
-using CarSale.Core.Contracts;
-using CarSale.Core.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using CarSale.Data.Models;
 using CarSale.Infrastructure.Data.Common;
+using Moq;
 
 namespace CarSale.Tests.Services
 {
@@ -30,14 +22,11 @@ namespace CarSale.Tests.Services
         [Test]
         public async Task AllBrandsNamesAsync_Returns_Correct_Brand_Names()
         {
-            // Arrange
             var expectedBrandNames = new List<string> { "Brand1", "Brand2", "Brand3" };
             _repositoryMock.Setup(repo => repo.AllReadOnly<Brand>()).Returns(new TestAsyncEnumerable<Brand>(GetTestBrands().AsQueryable()));
 
-            // Act
             var result = await _offerService.AllBrandsNamesAsync();
 
-            // Assert
             Assert.That(result.Count(), Is.EqualTo(expectedBrandNames.Count()));
             Assert.That(result, Is.EqualTo(expectedBrandNames));
         }
@@ -47,20 +36,15 @@ namespace CarSale.Tests.Services
         [Test]
         public async Task AllFuelsNamesAsync_Returns_Correct_Fuel_Names()
         {
-            // Arrange
             var expectedFuelNames = new List<string> { "Fuel1", "Fuel2", "Fuel3" };
             _repositoryMock.Setup(repo => repo.AllReadOnly<Fuel>()).Returns(new TestAsyncEnumerable<Fuel>(GetTestFuels().AsQueryable()));
 
-            // Act
             var result = await _offerService.AllFuelsNamesAsync();
 
-            // Assert
             Assert.AreEqual(expectedFuelNames.Count(), result.Count());
             Assert.AreEqual(expectedFuelNames, result);
         }
         #endregion
-
-        // Repeat similar tests for other methods...
 
         #region Test Data
         private List<Offer> GetTestOffers()
@@ -95,21 +79,17 @@ namespace CarSale.Tests.Services
             };
         }
 
-        // Repeat for other test data...
         #endregion
 
         #region AllTransmissionsNamesAsync Tests
         [Test]
         public async Task AllTransmissionsNamesAsync_Returns_Correct_Transmission_Names()
         {
-            // Arrange
             var expectedTransmissionNames = new List<string> { "Transmission1", "Transmission2", "Transmission3" };
             _repositoryMock.Setup(repo => repo.AllReadOnly<Transmission>()).Returns(new TestAsyncEnumerable<Transmission>(GetTestTransmissions().AsQueryable()));
 
-            // Act
             var result = await _offerService.AllTransmissionsNamesAsync();
 
-            // Assert
             Assert.That(result.Count(), Is.EqualTo(expectedTransmissionNames.Count()));
             Assert.That(result, Is.EqualTo(expectedTransmissionNames));
         }
@@ -119,14 +99,11 @@ namespace CarSale.Tests.Services
         [Test]
         public async Task AllCarTypesNamesAsync_Returns_Correct_CarType_Names()
         {
-            // Arrange
             var expectedCarTypeNames = new List<string> { "CarType1", "CarType2", "CarType3" };
             _repositoryMock.Setup(repo => repo.AllReadOnly<CarType>()).Returns(new TestAsyncEnumerable<CarType>(GetTestCarTypes().AsQueryable()));
 
-            // Act
             var result = await _offerService.AllCarTypesNamesAsync();
 
-            // Assert
             Assert.That(result.Count(), Is.EqualTo(expectedCarTypeNames.Count()));
             Assert.That(result, Is.EqualTo(expectedCarTypeNames));
         }
@@ -136,14 +113,11 @@ namespace CarSale.Tests.Services
         [Test]
         public async Task AllColorsNamesAsync_Returns_Correct_Color_Names()
         {
-            // Arrange
             var expectedColorNames = new List<string> { "Color1", "Color2", "Color3" };
             _repositoryMock.Setup(repo => repo.AllReadOnly<Color>()).Returns(new TestAsyncEnumerable<Color>(GetTestColors().AsQueryable()));
 
-            // Act
             var result = await _offerService.AllColorsNamesAsync();
 
-            // Assert
             Assert.AreEqual(expectedColorNames.Count(), result.Count());
             Assert.AreEqual(expectedColorNames, result);
         }
@@ -153,14 +127,11 @@ namespace CarSale.Tests.Services
         [Test]
         public async Task AllCitiesNamesAsync_Returns_Correct_City_Names()
         {
-            // Arrange
             var expectedCityNames = new List<string> { "City1", "City2", "City3" };
             _repositoryMock.Setup(repo => repo.AllReadOnly<City>()).Returns(new TestAsyncEnumerable<City>(GetTestCities().AsQueryable()));
 
-            // Act
             var result = await _offerService.AllCitiesNamesAsync();
 
-            // Assert
             Assert.That(result.Count(), Is.EqualTo(expectedCityNames.Count()));
             Assert.That(result, Is.EqualTo(expectedCityNames));
         }
@@ -170,21 +141,17 @@ namespace CarSale.Tests.Services
         [Test]
         public async Task AllBrandsAsync_Returns_Correct_Brand_Service_Models()
         {
-            // Arrange
             var expectedBrands = GetTestBrands().Select(b => new OfferBrandServiceModel { Id = b.Id, Name = b.Name }).ToList();
             _repositoryMock.Setup(repo => repo.AllReadOnly<Brand>()).Returns(new TestAsyncEnumerable<Brand>(GetTestBrands().AsQueryable()));
 
-            // Act
             var result = await _offerService.AllBrandsAsync();
 
-            // Assert
             Assert.That(result.Count(), Is.EqualTo(expectedBrands.Count()));
             Assert.That(result.First().Id, Is.EqualTo(expectedBrands.First().Id));
             Assert.That(result.First().Name, Is.EqualTo(expectedBrands.First().Name));
         }
         #endregion
 
-        // Repeat similar tests for other methods...
 
         #region Test Data
         private List<Transmission> GetTestTransmissions()
