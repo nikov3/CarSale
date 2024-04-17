@@ -57,6 +57,11 @@ namespace CarSale.Controllers
             var userId = User.Id();
             IEnumerable<OfferServiceModel> model = null;
 
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("Mine", "Offer", new { area = "Admin" });
+            }
+
             if(await dealerService.ExistsByIdAsync(userId))
             {
                 int dealerId = await dealerService.GetDealerIdAsync(userId) ?? 0;
@@ -156,7 +161,7 @@ namespace CarSale.Controllers
 
             int newOfferId = await offerService.CreateAsync(model, dealerId ?? 0);
 
-            return RedirectToAction(nameof(Details), new { id = newOfferId, Information = model.GetInformation() });
+            return RedirectToAction(nameof(All));
         }
 
         [HttpGet]

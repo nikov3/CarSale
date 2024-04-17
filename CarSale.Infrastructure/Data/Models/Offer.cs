@@ -82,5 +82,7 @@ namespace CarSale.Data.Models
 
         [Required]
         public DateTime CreatedOn { get; set; }
+
+        public bool IsApproved { get; set; }
     }
 }

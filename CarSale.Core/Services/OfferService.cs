@@ -30,7 +30,8 @@ namespace CarSale.Core.Services
             int currentPage = 1, 
             int offersPerPage = 1)
         {
-            var offersToShow = repository.AllReadOnly<Offer>();
+            var offersToShow = repository.AllReadOnly<Offer>()
+                .Where(o => o.IsApproved);
 
             if (brand != null)
             {
@@ -278,7 +279,8 @@ namespace CarSale.Core.Services
         {
             return await repository
                 .AllReadOnly<Offer>()
-                .OrderByDescending(o => o.Id)
+				.Where(o => o.IsApproved)
+				.OrderByDescending(o => o.Id)
                 .Take(3)
                 .Select(o => new OfferIndexServiceModel() 
                 {
@@ -299,6 +301,7 @@ namespace CarSale.Core.Services
         public async Task<IEnumerable<OfferServiceModel>> AllOffersByDealerIdAsync(int dealerId)
         {
             return await repository .AllReadOnly<Offer>()
+                .Where(o => o.IsApproved)
                 .Where(o => o.DealerId == dealerId)
                 .ProjectToOfferServiceModel()
                 .ToListAsync();
@@ -316,7 +319,8 @@ namespace CarSale.Core.Services
                 .Where(o => o.Id == id).FirstAsync();
 
             return await repository.AllReadOnly<Offer>()
-                .Where(o => o.Id == id)
+				.Where(o => o.IsApproved)
+				.Where(o => o.Id == id)
                 .Select(o => new OfferDetailsServiceModel()
                 {
                     Id = o.Id,
@@ -377,6 +381,7 @@ namespace CarSale.Core.Services
         public async Task<OfferFormModel?> GetOfferFormModelByIdAsync(int id)
         {
             var offer = await repository.AllReadOnly<Offer>()
+                .Where(o => o.IsApproved)
                 .Where(o => o.Id == id)
                 .Select(o => new OfferFormModel()
                 {
@@ -415,6 +420,34 @@ namespace CarSale.Core.Services
             await repository.DeleteAsync<Offer>(offerId);
 
             await repository.SaveChangesAsync();
+        }
+
+        public async Task ApproveOfferAsync(int offerId)
+        {
+            var offer = await repository.GetByIdAsync<Offer>(offerId);
+
+            if (offer != null && offer.IsApproved == false)
+            {
+                offer.IsApproved = true;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<OfferServiceModel>> GetUnApprovedAsync()
+        {
+            return await repository.AllReadOnly<Offer>()
+                .Where(offer => offer.IsApproved == false)
+                .Select(o => new OfferServiceModel 
+                {
+                    Id = o.Id,
+                    CarModel = o.CarModel,
+                    Title = $"{o.Brand.Name} {o.CarModel}",
+                    ImageUrl = o.ImageUrl,
+                    Description = o.Description,
+                    Price = o.Price,
+                })
+                .ToListAsync();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using CarSale.Data.Models;
 using Microsoft.AspNetCore.Identity;
-using static CarSale.Core.Constants.RoleConstants;
+using static CarSale.Core.Constants.AdministratorConstants;
 
 namespace Microsoft.AspNetCore.Builder
 {

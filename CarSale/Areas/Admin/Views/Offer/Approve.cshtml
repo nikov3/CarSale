@@ -1,0 +1,23 @@
+﻿@using CarSale.Core.Models.Offer
+@model IEnumerable<OfferServiceModel>
+
+@{
+    ViewBag.Title = "Approve";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<h4>Offers to approve</h4>
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">You have no offers to approve!</h2>
+}
+
+<div class="row">
+    @foreach (var offer in Model)
+    {
+        @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_ApproveOfferPartial.cshtml", offer)
+    }
+</div>

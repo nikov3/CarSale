@@ -17,7 +17,8 @@ namespace CarSale.Core.Services
         public async Task<StatisticServiceModel> TotalAsync()
         {
             int totalOffers = await repository.AllReadOnly<Offer>()
-                .CountAsync();
+				.Where(o => o.IsApproved)
+				.CountAsync();
             int totalDealers = await repository.AllReadOnly<Dealer>() 
                 .CountAsync();
 

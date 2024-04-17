@@ -17,5 +17,7 @@ namespace CarSale.Data.Models
         [MaxLength(NameMaxLength)]
         [PersonalData]
         public string LastName { get; set; } = string.Empty;
+
+        public Dealer? Dealer { get; set; }
     }
 }

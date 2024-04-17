@@ -1,4 +1,4 @@
-﻿using static CarSale.Core.Constants.RoleConstants;
+﻿using static CarSale.Core.Constants.AdministratorConstants;
 using System.Security.Claims;
 
 namespace CarSale.Extensions

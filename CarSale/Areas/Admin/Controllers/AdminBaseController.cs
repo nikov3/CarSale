@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static CarSale.Core.Constants.RoleConstants;
+using static CarSale.Core.Constants.AdministratorConstants;
 
 namespace CarSale.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(AdminAreaName)]
     [Authorize(Roles = AdminRole)]
     public class AdminBaseController : Controller
     {

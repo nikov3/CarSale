@@ -15,6 +15,7 @@ namespace CarSale.Extensions
             services.AddScoped<IOfferService, OfferService>();
             services.AddScoped<IDealerService, DealerService>();
             services.AddScoped<IStatisticService, StatisticService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }
@@ -37,6 +38,7 @@ namespace CarSale.Extensions
             services
                 .AddDefaultIdentity<ApplicationUser>(options =>
                 {
+                    options.User.RequireUniqueEmail = true;
                     options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireLowercase = false;

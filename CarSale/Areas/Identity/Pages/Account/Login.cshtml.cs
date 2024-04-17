@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using CarSale.Data.Models;
-using static CarSale.Core.Constants.RoleConstants;
+using static CarSale.Core.Constants.AdministratorConstants;
 
 namespace CarSale.Areas.Identity.Pages.Account
 {

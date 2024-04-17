@@ -72,5 +72,9 @@ namespace CarSale.Core.Contracts
         Task<OfferFormModel?> GetOfferFormModelByIdAsync(int id);
 
         Task DeleteAsync(int offerId);
+
+        Task<IEnumerable<OfferServiceModel>> GetUnApprovedAsync();
+
+        Task ApproveOfferAsync(int offerId);
     }
 }
