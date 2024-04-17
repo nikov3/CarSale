@@ -1,8 +1,8 @@
-﻿using CarSale.Core.Contracts;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
+﻿using CarSale.Controllers;
+using CarSale.Core.Contracts;
 using CarSale.Extensions;
-using CarSale.Controllers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CarSale.Attributes
 {

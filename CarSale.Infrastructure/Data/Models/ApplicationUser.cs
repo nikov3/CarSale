@@ -6,13 +6,11 @@ namespace CarSale.Data.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        //[StringLength(50, MinimumLength = 5, ErrorMessage = "Company name must be between {2} and {1} length")]
         [Required]
         [MaxLength(NameMaxLength)]
         [PersonalData]
         public string FirstName { get; set; } = string.Empty;
 
-        //[StringLength(50, MinimumLength = 5, ErrorMessage = "Company name must be between {2} and {1} length")]
         [Required]
         [MaxLength(NameMaxLength)]
         [PersonalData]
